@@ -81,4 +81,8 @@
         <property name="realm" ref="jdbcRealm"></property>
     </bean>
 
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+    </bean>
+
 </beans>
