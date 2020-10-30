@@ -8,7 +8,7 @@
         <setting name="logImpl" value="SLF4J"/>
     </settings>
     <typeAliases>
-        <package name="cn.edu.ujn.model"/>
+        <package name="cn.edu.ujn.lab3.model"/>
     </typeAliases>
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>

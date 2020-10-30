@@ -1,7 +1,7 @@
-package cn.edu.ujn.model;
+package cn.edu.ujn.lab3.model;
 
-import cn.edu.ujn.constant.CHttpStatus;
-import cn.edu.ujn.utils.CStringUtils;
+import cn.edu.ujn.lab3.constant.CHttpStatus;
+import cn.edu.ujn.lab3.utils.CStringUtils;
 
 import java.util.HashMap;
 
@@ -84,7 +84,7 @@ public class ResultMSG extends HashMap<String, Object> {
      * @return 成功消息
      */
     public static ResultMSG success() {
-        return ResultMSG.success("操作成功!");
+        return success("操作成功!");
     }
 
     /**

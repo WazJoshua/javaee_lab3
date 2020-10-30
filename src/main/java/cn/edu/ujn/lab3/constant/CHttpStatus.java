@@ -1,4 +1,4 @@
-package cn.edu.ujn.constant;
+package cn.edu.ujn.lab3.constant;
 
 /**
  * 自定义的请求状态

@@ -1,6 +1,6 @@
-package cn.edu.ujn.service;
+package cn.edu.ujn.lab3.service;
 
-import cn.edu.ujn.utils.CStringUtils;
+import cn.edu.ujn.lab3.utils.CStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

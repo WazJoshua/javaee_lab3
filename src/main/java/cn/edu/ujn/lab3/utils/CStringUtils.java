@@ -1,4 +1,4 @@
-package cn.edu.ujn.utils;
+package cn.edu.ujn.lab3.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

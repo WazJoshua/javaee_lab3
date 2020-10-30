@@ -36,7 +36,7 @@
 
     <!--配置扫描器,将MyBatis接口的实现加入容器-->
     <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.edu.ujn.dao"></property>
+        <property name="basePackage" value="cn.edu.ujn.lab3.dao"></property>
     </bean>
 
     <!--设置批量插入的SQLSession-->
@@ -63,7 +63,7 @@
     <!--开启基于注解的事务和基于xml文件的事务(重要的事务使用xml方式)-->
     <aop:config>
         <!--切入点表达式-->
-        <aop:pointcut id="txPoint" expression="execution(* cn.edu.ujn.service..*(..))"/>
+        <aop:pointcut id="txPoint" expression="execution(* cn.edu.ujn.lab3.service..*(..))"/>
         <!--配置事务增强-->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"></aop:advisor>
     </aop:config>
