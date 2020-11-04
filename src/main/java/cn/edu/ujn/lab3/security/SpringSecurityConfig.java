@@ -29,6 +29,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/login").anonymous();
+        http.antMatcher("/*").anonymous();
     }
 }
