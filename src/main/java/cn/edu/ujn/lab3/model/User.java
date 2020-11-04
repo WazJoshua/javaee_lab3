@@ -1,7 +1,23 @@
 package cn.edu.ujn.lab3.model;
 
-public class User {
-    private Integer userId;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+@Data
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@RequiredArgsConstructor
+public class User implements UserDetails {
+    private static final long serialVersionUID = 1L;//序列化时为了保持bai版本的兼容性,在版本升级时反序列化仍保持对象的唯一性
+
+    private Integer userId;                         //唯一标识
 
     private String userCode;
 
@@ -11,43 +27,39 @@ public class User {
 
     private Integer userState;
 
-    public Integer getUserId() {
-        return userId;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    @Override
+    public String getPassword() {
+        return this.userPassword;
     }
 
-    public String getUserCode() {
-        return userCode;
+    @Override
+    public String getUsername() {
+        return this.userName;
     }
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode == null ? null : userCode.trim();
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getUserName() {
-        return userName;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword == null ? null : userPassword.trim();
-    }
-
-    public Integer getUserState() {
-        return userState;
-    }
-
-    public void setUserState(Integer userState) {
-        this.userState = userState;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

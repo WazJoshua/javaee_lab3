@@ -68,12 +68,12 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"></aop:advisor>
     </aop:config>
 
-    <!--=========================================shiro配置=======================================-->
-    <!--配置JDBCRealm-->
+    <!--&lt;!&ndash;=========================================shiro配置=======================================&ndash;&gt;
+    &lt;!&ndash;配置JDBCRealm&ndash;&gt;
     <bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
-        <!--配置数据源-->
+        &lt;!&ndash;配置数据源&ndash;&gt;
         <property name="dataSource" ref="dataSource"></property>
-        <!--登录认证用户的查询,以用户名作为查询条件,密码为查询结果-->
+        &lt;!&ndash;登录认证用户的查询,以用户名作为查询条件,密码为查询结果&ndash;&gt;
         <property name="authenticationQuery" value="select password from sys_user where user_code=?"></property>
     </bean>
 
@@ -83,6 +83,7 @@
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
-    </bean>
+    </bean>-->
+<!--=================================================springSecurity=============================================-->
 
 </beans>

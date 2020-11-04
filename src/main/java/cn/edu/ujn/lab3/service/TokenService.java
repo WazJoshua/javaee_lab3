@@ -1,6 +1,10 @@
 package cn.edu.ujn.lab3.service;
 
+import cn.edu.ujn.lab3.model.User;
 import cn.edu.ujn.lab3.utils.CStringUtils;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class TokenService {
 
+    @Autowired
+    ShiroService shiroService;
+
     //令牌标识
     @Value("${token.header}")
     private String header;
@@ -22,7 +29,7 @@ public class TokenService {
     private String secret;
 
     @Value("${token.expireTime}")
-    private int expireTime;
+    private String expireTime;
 
     protected static final long MILLS_SECOND = 1000;
 
@@ -30,9 +37,37 @@ public class TokenService {
 
     public static final String TOKEN_PREFIX = "Joshua ";
 
+    /**
+     * 获取用户身份信息
+     *
+     * @param request
+     * @return 用户信息
+     */
+    public User getLoginUser(HttpServletRequest request) {
+
+        String token = getToken(request);
+        if (CStringUtils.isNotEmpty(token)) {
+            Claims claims = praseToken(token);
+            String uuid = (String) claims.get("login_user_key");
+            String tokenKey = getTokenKey(uuid);
+        }
+        return null;
+    }
+
+    private String getTokenKey(String uuid){
+        return "login_user_key"+uuid;
+    }
+
+    private Claims praseToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+    }
 
     /**
      * 获取token信息
+     *
      * @param request
      * @return
      */

@@ -17,7 +17,11 @@
     from sys_user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="findByUserCode" resultType="cn.edu.ujn.lab3.model.User">
+      select <include refid="Base_Column_List"/>
+      from system_user where user_code=#{usercode}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>

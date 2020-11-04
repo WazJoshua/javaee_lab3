@@ -3,6 +3,8 @@ package cn.edu.ujn.lab3.dao;
 import cn.edu.ujn.lab3.model.User;
 
 public interface UserMapper {
+    User findByUserCode(String usercode);
+
     int deleteByPrimaryKey(Integer userId);
 
     int insert(User record);
