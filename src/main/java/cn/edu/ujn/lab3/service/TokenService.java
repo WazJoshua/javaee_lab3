@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class TokenService {
 
-    @Autowired
-    ShiroService shiroService;
-
     //令牌标识
     @Value("${token.header}")
     private String header;

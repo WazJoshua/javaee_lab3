@@ -23,33 +23,6 @@
 
     <dependencies>
 
-        <!-- &lt;!&ndash;================================shiro依赖=============================================&ndash;&gt;
-         &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.shiro/shiro-ehcache &ndash;&gt;
-         <dependency>
-             <groupId>org.apache.shiro</groupId>
-             <artifactId>shiro-ehcache</artifactId>
-             <version>1.6.0</version>
-         </dependency>
-
-         &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring &ndash;&gt;
-         <dependency>
-             <groupId>org.apache.shiro</groupId>
-             <artifactId>shiro-spring</artifactId>
-             <version>1.6.0</version>
-         </dependency>
-
-         <dependency>
-             <groupId>commons-logging</groupId>
-             <artifactId>commons-logging</artifactId>
-             <version>1.2</version>
-         </dependency>
-
-         &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.shiro/shiro-core &ndash;&gt;
-         <dependency>
-             <groupId>org.apache.shiro</groupId>
-             <artifactId>shiro-core</artifactId>
-             <version>1.6.0</version>
-         </dependency>-->
 
         <!--MybatisGenerator https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
         <dependency>
@@ -79,45 +52,8 @@
         </dependency>
 
         <!--================================================spring依赖========================================-->
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
-        <!--<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
--->
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -180,8 +116,6 @@
             <version>${springboot.version}</version>
             <scope>test</scope>
         </dependency>
-
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

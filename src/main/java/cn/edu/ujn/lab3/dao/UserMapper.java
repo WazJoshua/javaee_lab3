@@ -1,9 +1,10 @@
 package cn.edu.ujn.lab3.dao;
 
 import cn.edu.ujn.lab3.model.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    User findByUserCode(String usercode);
+    User findByUsercode(String usercode);
 
     int deleteByPrimaryKey(Integer userId);
 

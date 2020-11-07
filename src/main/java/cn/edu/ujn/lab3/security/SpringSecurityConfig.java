@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author:Joshua
@@ -23,12 +24,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select user_code,user_password,'TRUE' from sys_user where user_code=?")
+                .usersByUsernameQuery("select user_code,user_password,user_state from sys_user where user_code=?")
         ;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/*").anonymous();
+        http
+                .authorizeRequests()
+                .antMatchers("/**", "/")
+                .permitAll();
+        http.csrf().disable();
+        /*http.cors();        //开启跨域*/
     }
 }

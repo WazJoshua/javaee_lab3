@@ -6,6 +6,6 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-*.jar
 *.war
 *.log
+/../../../../../:\code\IDEA_JAVA\Lab3Demo1\out\

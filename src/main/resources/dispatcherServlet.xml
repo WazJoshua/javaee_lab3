@@ -12,7 +12,7 @@
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
       <!--  <property name="prefix" value="/WEB-INF/pages/"></property>-->
-        <property name="suffix" value=".html"></property>
+        <!--<property name="suffix" value=".html"></property>-->
     </bean>
 
     <!--两个标准配置-->

@@ -3,9 +3,9 @@
 <mapper namespace="cn.edu.ujn.lab3.dao.UserMapper">
   <resultMap id="BaseResultMap" type="cn.edu.ujn.lab3.model.User">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_code" jdbcType="VARCHAR" property="usercode" />
+    <result column="user_name" jdbcType="VARCHAR" property="username" />
+    <result column="user_password" jdbcType="VARCHAR" property="userpassword" />
     <result column="user_state" jdbcType="INTEGER" property="userState" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -17,9 +17,9 @@
     from sys_user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-    <select id="findByUserCode" resultType="cn.edu.ujn.lab3.model.User">
+    <select id="findByUsercode" resultType="cn.edu.ujn.lab3.model.User">
       select <include refid="Base_Column_List"/>
-      from system_user where user_code=#{usercode}
+      from sys_user where user_code=#{usercode}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_user
@@ -28,8 +28,8 @@
   <insert id="insert" parameterType="cn.edu.ujn.lab3.model.User">
     insert into sys_user (user_id, user_code, user_name, 
       user_password, user_state)
-    values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{userPassword,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER})
+    values (#{userId,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{userpassword,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.ujn.lab3.model.User">
     insert into sys_user
@@ -37,13 +37,13 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="userCode != null">
+      <if test="usercode != null">
         user_code,
       </if>
-      <if test="userName != null">
+      <if test="username != null">
         user_name,
       </if>
-      <if test="userPassword != null">
+      <if test="userpassword != null">
         user_password,
       </if>
       <if test="userState != null">
@@ -54,14 +54,14 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userCode != null">
-        #{userCode,jdbcType=VARCHAR},
+      <if test="usercode != null">
+        #{usercode,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
-      <if test="userPassword != null">
-        #{userPassword,jdbcType=VARCHAR},
+      <if test="userpassword != null">
+        #{userpassword,jdbcType=VARCHAR},
       </if>
       <if test="userState != null">
         #{userState,jdbcType=INTEGER},
@@ -71,14 +71,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.ujn.lab3.model.User">
     update sys_user
     <set>
-      <if test="userCode != null">
-        user_code = #{userCode,jdbcType=VARCHAR},
+      <if test="usercode != null">
+        user_code = #{usercode,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="username != null">
+        user_name = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="userPassword != null">
-        user_password = #{userPassword,jdbcType=VARCHAR},
+      <if test="userpassword != null">
+        user_password = #{userpassword,jdbcType=VARCHAR},
       </if>
       <if test="userState != null">
         user_state = #{userState,jdbcType=INTEGER},
@@ -88,9 +88,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.ujn.lab3.model.User">
     update sys_user
-    set user_code = #{userCode,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=VARCHAR},
+    set user_code = #{usercode,jdbcType=VARCHAR},
+      user_name = #{username,jdbcType=VARCHAR},
+      user_password = #{userpassword,jdbcType=VARCHAR},
       user_state = #{userState,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
