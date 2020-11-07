@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>登录</h1>
+<form>
+    <div><label id="user-name-label">账号</label><input type="text" id="usercode"></div>
+    <div><label id="password-label">密码</label><input type="password" id="password"></div>
+    <div>
+        <button type="button" class="btn btn-primary" id="loginButton">登录</button>
+    </div>
+    <div id="altMsg"></div>
+</form>
+</body>
+<script>
+    $("#loginButton").click(
+        function () {
+            let usercode = $("#usercode").val();
+            let password = $("#password").val();
+            if (usercode == "" || password == "") {
+                $("#altMsg").html("请输入账号,密码");
+                return false;
+            }
+            let s = JSON.stringify({"usercode": usercode, "userpassword": password});
+            $.ajax({
+                type: "POST",
+                url: "/Lab3Demo/loginUser",
+                contentType: "application/json",
+                data: s,
+                success: function (success) {
+                    if (success.code == 200) {
+                        window.location.href = "/Lab3Demo/main"
+                    } else if (success.code == 416) {
+                        $("#altMsg").html(success.msg);
+                    } else if (success.code == 444) {
+                        $("#altMsg").html(success.msg);
+                    } else {
+                        window.location.href = "/Lab3Demo/error"
+                    }
+                }
+            })
+        }
+    )
+</script>
+</html>
