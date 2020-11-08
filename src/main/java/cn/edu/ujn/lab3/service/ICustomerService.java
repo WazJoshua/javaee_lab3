@@ -12,4 +12,8 @@ import java.util.List;
 public interface ICustomerService {
     List<Customer> findAllCustomer();
 
+    List<Customer> selectCusBySelOV(Customer customer);
+
+    List<Customer> selectCusBySel(Customer customer);
+
 }

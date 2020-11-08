@@ -26,9 +26,6 @@ public class LoginUserController {
 
     @Autowired
     private UserMapper userMapper;
-    //private PasswordEncoder passwordEncoder;
-    @Autowired
-    private TokenService tokenService;
 
     private Gson gson = new Gson();
 

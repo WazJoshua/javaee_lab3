@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 
-@RequiredArgsConstructor
 @Data
+@RequiredArgsConstructor
 public class Customer {
     private Integer custId;
 
@@ -33,5 +33,6 @@ public class Customer {
     private String custAddress;
 
     private Date custCreatetime;
+
 
 }
