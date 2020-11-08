@@ -112,7 +112,7 @@ public class LoginUserController {
 
     @GetMapping("/main")
     public String toMainPage() {
-        return "/pages/mainpage.html";
+        return "/pages/customer.html";
     }
 
     @RequestMapping("/error")

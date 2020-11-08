@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,9 +33,32 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                /*.httpBasic()
+
+                .and()
                 .authorizeRequests()
+                .antMatchers("/static/**", "/index.html", "/pages/loginpage.html", "/pages/registration.html")
+                .permitAll()
+
+                .and()*/
+                .authorizeRequests()
+                //.anyRequest()
+                //.authenticated()
+                //.access("hasRole('1')")
                 .antMatchers("/**", "/")
-                .permitAll();
+                .permitAll()
+
+                /*.and()
+                .formLogin()
+                .loginPage("/pages/loginpage.html")
+                .loginProcessingUrl("/loginUser")
+                .successForwardUrl("/login/success")
+                .usernameParameter("usercode")
+                .passwordParameter("password")
+
+                .and()*/
+
+        ;
         http.csrf().disable();
         /*http.cors();        //开启跨域*/
     }
