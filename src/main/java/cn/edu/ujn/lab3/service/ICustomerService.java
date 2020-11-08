@@ -11,5 +11,10 @@ import java.util.List;
  */
 public interface ICustomerService {
     List<Customer> findAllCustomer();
+    /*List<Customer> findSective(Customer )*/
+
+
+
+
 
 }

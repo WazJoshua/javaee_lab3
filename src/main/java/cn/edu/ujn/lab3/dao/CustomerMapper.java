@@ -1,6 +1,7 @@
 package cn.edu.ujn.lab3.dao;
 
 import cn.edu.ujn.lab3.model.Customer;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface CustomerMapper {
     int insertSelective(Customer record);
 
     Customer selectByPrimaryKey(Integer custId);
+
+    List<Customer> selectSelective(@Param("record") Customer record);
 
     int updateByPrimaryKeySelective(Customer record);
 

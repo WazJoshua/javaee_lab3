@@ -15,6 +15,8 @@
     <result column="cust_zipcode" jdbcType="VARCHAR" property="custZipcode" />
     <result column="cust_address" jdbcType="VARCHAR" property="custAddress" />
     <result column="cust_createtime" jdbcType="TIMESTAMP" property="custCreatetime" />
+
+
   </resultMap>
   <sql id="Base_Column_List">
     cust_id, cust_name, cust_user_id, cust_create_id, cust_source, cust_industry, cust_level, 
@@ -29,7 +31,27 @@
     <select id="finaAllCustomer" resultType="cn.edu.ujn.lab3.model.Customer">
       select * from customer
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+
+
+
+  <select id="selectSelective" resultType="cn.edu.ujn.lab3.model.Customer">
+    select
+    <include refid="Base_Column_List"></include>
+    from customer
+    <where>
+      <if test="cus"/>
+    </where>
+  </select>
+
+
+
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from customer
     where cust_id = #{custId,jdbcType=INTEGER}
   </delete>
