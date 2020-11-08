@@ -289,8 +289,9 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <c:forEach items="${page.rows}" var="row">
+                        <tbody id="tableBody">
+                        <!--显示用户信息-->
+                        <!--<c:forEach items="${page.rows}" var="row">
                             <tr>
                                 <td>${row.cust_id}</td>
                                 <td>${row.cust_name}</td>
@@ -304,9 +305,13 @@
                                     <a href="#" class="btn btn-danger btn-xs" onclick="deleteCustomer(${row.cust_id})">删除</a>
                                 </td>
                             </tr>
-                        </c:forEach>
+                        </c:forEach>-->
                         </tbody>
                     </table>
+                    <!--分页文字信息  -->
+                    <div class="col-md-6" id="page_info_area"></div>
+                    <!-- 分页条信息 -->
+                    <div class="col-md-6" id="page_nav_area"></div>
                     <div class="col-md-12 text-right">
                         <ujn:page url="${pageContext.request.contextPath }/customer/list.action" />
                     </div>
@@ -520,6 +525,7 @@
 <script src="http://localhost:8765/Lab3Demo/static/js/dataTables.bootstrap.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="http://localhost:8765/Lab3Demo/static/js/sb-admin-2.js"></script>
+<script src="http://localhost:8765/Lab3Demo/static/js/customer-j.js"></script>
 <!-- 编写js代码 -->
 <script type="text/javascript">
     //清空新建客户窗口中的数据
