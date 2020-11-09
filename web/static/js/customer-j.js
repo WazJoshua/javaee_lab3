@@ -1,8 +1,4 @@
 var totalRecord, currentPage;
-let cusName = $("#customerName").val();
-let cusSour = $("#customerFrom").val().replace(/[^0-9]/ig, "");
-let cusIndus = $("#custIndustry").val().replace(/[^0-9]/ig, "");
-let cusLevel = $("#custLevel").val().replace(/[^0-9]/ig, "");
 //1、页面加载完成以后，直接去发送ajax请求,要到分页数据
 $(function () {
     //去首页
@@ -10,12 +6,6 @@ $(function () {
     getops("customerFrom");
     getops("custIndustry");
     getops("custLevel");
-    /*getops("#new_customerFrom")
-    getops("#new_custIndustry")
-    getops("#new_custLevel")
-    getops("#edit_customerFrom")
-    getops("#edit_custIndustry")
-    getops("#edit_custLevel")*/
 
 });
 
@@ -84,10 +74,10 @@ function build_page_nav(result) {
     } else {
         //为元素添加点击翻页的事件
         firstPageLi.click(function () {
-            to_page(1, cusIndus, cusLevel, cusName, cusSour);
+            to_page(1);
         });
         prePageLi.click(function () {
-            to_page(result.pageInfo.pageNum - 1, cusIndus, cusLevel, cusName, cusSour);
+            to_page(result.pageInfo.pageNum - 1);
         });
     }
 
@@ -99,10 +89,10 @@ function build_page_nav(result) {
         lastPageLi.addClass("disabled");
     } else {
         nextPageLi.click(function () {
-            to_page(result.pageInfo.pageNum + 1, cusIndus, cusLevel, cusName, cusSour);
+            to_page(result.pageInfo.pageNum + 1);
         });
         lastPageLi.click(function () {
-            to_page(result.pageInfo.pages, cusIndus, cusLevel, cusName, cusSour);
+            to_page(result.pageInfo.pages);
         });
     }
 
@@ -117,7 +107,7 @@ function build_page_nav(result) {
             numLi.addClass("active");
         }
         numLi.click(function () {
-            to_page(item, cusIndus,cusLevel,cusName,cusSour);
+            to_page(item);
         });
         ul.append(numLi);
     });
@@ -163,7 +153,11 @@ function intoCusSource(location, sources) {
 
 /*****************************************************查询操作的js*******************************************************/
 
-function to_page(pn, cusIndus = null, cusLevel = null, cusName = null, cusSour = null) {
+function to_page(pn) {
+    let cusName = $("#customerName").val();
+    let cusSour = $("#customerFrom").val().replace(/[^0-9]/ig, "");
+    let cusIndus = $("#custIndustry").val().replace(/[^0-9]/ig, "");
+    let cusLevel = $("#custLevel").val().replace(/[^0-9]/ig, "");
     var s = JSON.stringify({
         "pn": pn,
         "customer": {
@@ -173,14 +167,14 @@ function to_page(pn, cusIndus = null, cusLevel = null, cusName = null, cusSour =
             "custLevel": cusLevel
         }
     });
-    console.log(s);
+    //console.log(s);
     $.ajax({
         url: "/Lab3Demo/getCustomerBySel",
         contentType: "application/json",
         data: s,
         type: "POST",
         success: function (result) {
-            console.log(result.pageInfo);
+           // console.log(result.pageInfo);
             //1、解析并显示用户数据
             build_cust_table(result);
             //2、解析并显示分页信息
@@ -194,12 +188,7 @@ function to_page(pn, cusIndus = null, cusLevel = null, cusName = null, cusSour =
 
 $("#selectCus").click(
     function () {
-        let cusName = $("#customerName").val();
-        let cusSour = $("#customerFrom").val().replace(/[^0-9]/ig, "");
-        let cusIndus = $("#custIndustry").val().replace(/[^0-9]/ig, "");
-        let cusLevel = $("#custLevel").val().replace(/[^0-9]/ig, "");
-
-        to_page(1, cusIndus, cusLevel, cusName, cusSour);
+        to_page(1);
     }
 )
 
