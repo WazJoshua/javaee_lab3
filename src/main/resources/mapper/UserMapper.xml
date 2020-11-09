@@ -5,7 +5,7 @@
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_code" jdbcType="VARCHAR" property="usercode" />
     <result column="user_name" jdbcType="VARCHAR" property="username" />
-    <result column="user_password" jdbcType="VARCHAR" property="userpassword" />
+    <result column="user_password" jdbcType="VARCHAR" property="password" />
     <result column="user_state" jdbcType="INTEGER" property="userState" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -17,7 +17,7 @@
     from sys_user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-    <select id="findByUsercode" resultType="cn.edu.ujn.lab3.model.User">
+    <select id="findByUsercode" resultMap="BaseResultMap">
       select <include refid="Base_Column_List"/>
       from sys_user where user_code=#{usercode}
     </select>

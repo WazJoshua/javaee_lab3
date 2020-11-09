@@ -1,4 +1,4 @@
-package cn.edu.ujn.lab3.service;
+package cn.edu.ujn.lab3.service.impl;
 
 import cn.edu.ujn.lab3.dao.UserMapper;
 import cn.edu.ujn.lab3.model.User;

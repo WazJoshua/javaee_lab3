@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.ujn.lab3.dao.CustomerMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.ujn.lab3.model.Customer">
-    <id column="cust_id" jdbcType="INTEGER" property="custId" />
-    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
-    <result column="cust_user_id" jdbcType="INTEGER" property="custUserId" />
-    <result column="cust_create_id" jdbcType="INTEGER" property="custCreateId" />
-    <result column="cust_source" jdbcType="VARCHAR" property="custSource" />
-    <result column="cust_industry" jdbcType="VARCHAR" property="custIndustry" />
-    <result column="cust_level" jdbcType="VARCHAR" property="custLevel" />
-    <result column="cust_linkman" jdbcType="VARCHAR" property="custLinkman" />
-    <result column="cust_phone" jdbcType="VARCHAR" property="custPhone" />
-    <result column="cust_mobile" jdbcType="VARCHAR" property="custMobile" />
-    <result column="cust_zipcode" jdbcType="VARCHAR" property="custZipcode" />
-    <result column="cust_address" jdbcType="VARCHAR" property="custAddress" />
-    <result column="cust_createtime" jdbcType="TIMESTAMP" property="custCreatetime" />
-
-
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="cn.edu.ujn.lab3.model.Customer">
+        <id column="cust_id" jdbcType="INTEGER" property="custId"/>
+        <result column="cust_name" jdbcType="VARCHAR" property="custName"/>
+        <result column="cust_user_id" jdbcType="INTEGER" property="custUserId"/>
+        <result column="cust_create_id" jdbcType="INTEGER" property="custCreateId"/>
+        <result column="cust_source" jdbcType="VARCHAR" property="custSource"/>
+        <result column="cust_industry" jdbcType="VARCHAR" property="custIndustry"/>
+        <result column="cust_level" jdbcType="VARCHAR" property="custLevel"/>
+        <result column="cust_linkman" jdbcType="VARCHAR" property="custLinkman"/>
+        <result column="cust_phone" jdbcType="VARCHAR" property="custPhone"/>
+        <result column="cust_mobile" jdbcType="VARCHAR" property="custMobile"/>
+        <result column="cust_zipcode" jdbcType="VARCHAR" property="custZipcode"/>
+        <result column="cust_address" jdbcType="VARCHAR" property="custAddress"/>
+        <result column="cust_createtime" jdbcType="TIMESTAMP" property="custCreatetime"/>
+    </resultMap>
+    <resultMap id="withDict" type="cn.edu.ujn.lab3.model.Customer">
+        <id column="cust_id" jdbcType="INTEGER" property="custId"/>
+        <result column="cust_name" jdbcType="VARCHAR" property="custName"/>
+        <result column="cust_user_id" jdbcType="INTEGER" property="custUserId"/>
+        <result column="cust_create_id" jdbcType="INTEGER" property="custCreateId"/>
+        <result column="cust_linkman" jdbcType="VARCHAR" property="custLinkman"/>
+        <result column="cust_phone" jdbcType="VARCHAR" property="custPhone"/>
+        <result column="cust_mobile" jdbcType="VARCHAR" property="custMobile"/>
+        <result column="cust_zipcode" jdbcType="VARCHAR" property="custZipcode"/>
+        <result column="cust_address" jdbcType="VARCHAR" property="custAddress"/>
+        <result column="cust_createtime" jdbcType="TIMESTAMP" property="custCreatetime"/>
+        <result column="cust_source" jdbcType="VARCHAR" property="custSource"/>
+        <result column="cust_industry" jdbcType="VARCHAR" property="custIndustry"/>
+        <result column="cust_level" jdbcType="VARCHAR" property="custLevel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     cust_id, cust_name, cust_user_id, cust_create_id, cust_source, cust_industry, cust_level, 
     cust_linkman, cust_phone, cust_mobile, cust_zipcode, cust_address, cust_createtime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from customer
-    where cust_id = #{custId,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer
+        where cust_id = #{custId,jdbcType=INTEGER}
+    </select>
     <select id="finaAllCustomer" resultType="cn.edu.ujn.lab3.model.Customer">
       select * from customer
     </select>
-
-
-
-
-  <select id="selectSelective" resultType="cn.edu.ujn.lab3.model.Customer">
-    select
-    <include refid="Base_Column_List"></include>
-    from customer
-    <where>
-      <if test="cus"/>
-    </where>
-  </select>
-
-
-
-
-
-
-
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectCusBySel" parameterType="cn.edu.ujn.lab3.model.Customer" resultType="cn.edu.ujn.lab3.model.Customer">
+        select * from customer
+        <where>
+            <if test="customer.custName!=null and customer.custName!=''">
+                cust_name=#{customer.custName}
+            </if>
+            <if test="customer.custSource!=null and customer.custSource!=''">
+                AND cust_source=#{customer.custSource}
+            </if>
+            <if test="customer.custIndustry!=null and customer.custIndustry!=''">
+                AND cust_industry=#{customer.custIndustry}
+            </if>
+            <if test="customer.custLevel!=null and customer.custLevel!=''">
+                AND cust_level=#{customer.custLevel}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from customer
     where cust_id = #{custId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.ujn.lab3.model.Customer">
+    <insert id="insert" parameterType="cn.edu.ujn.lab3.model.Customer">
     insert into customer (cust_id, cust_name, cust_user_id, 
       cust_create_id, cust_source, cust_industry, 
       cust_level, cust_linkman, cust_phone, 
@@ -67,134 +77,134 @@
       #{custMobile,jdbcType=VARCHAR}, #{custZipcode,jdbcType=VARCHAR}, #{custAddress,jdbcType=VARCHAR}, 
       #{custCreatetime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.ujn.lab3.model.Customer">
-    insert into customer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="custId != null">
-        cust_id,
-      </if>
-      <if test="custName != null">
-        cust_name,
-      </if>
-      <if test="custUserId != null">
-        cust_user_id,
-      </if>
-      <if test="custCreateId != null">
-        cust_create_id,
-      </if>
-      <if test="custSource != null">
-        cust_source,
-      </if>
-      <if test="custIndustry != null">
-        cust_industry,
-      </if>
-      <if test="custLevel != null">
-        cust_level,
-      </if>
-      <if test="custLinkman != null">
-        cust_linkman,
-      </if>
-      <if test="custPhone != null">
-        cust_phone,
-      </if>
-      <if test="custMobile != null">
-        cust_mobile,
-      </if>
-      <if test="custZipcode != null">
-        cust_zipcode,
-      </if>
-      <if test="custAddress != null">
-        cust_address,
-      </if>
-      <if test="custCreatetime != null">
-        cust_createtime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="custId != null">
-        #{custId,jdbcType=INTEGER},
-      </if>
-      <if test="custName != null">
-        #{custName,jdbcType=VARCHAR},
-      </if>
-      <if test="custUserId != null">
-        #{custUserId,jdbcType=INTEGER},
-      </if>
-      <if test="custCreateId != null">
-        #{custCreateId,jdbcType=INTEGER},
-      </if>
-      <if test="custSource != null">
-        #{custSource,jdbcType=VARCHAR},
-      </if>
-      <if test="custIndustry != null">
-        #{custIndustry,jdbcType=VARCHAR},
-      </if>
-      <if test="custLevel != null">
-        #{custLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="custLinkman != null">
-        #{custLinkman,jdbcType=VARCHAR},
-      </if>
-      <if test="custPhone != null">
-        #{custPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="custMobile != null">
-        #{custMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="custZipcode != null">
-        #{custZipcode,jdbcType=VARCHAR},
-      </if>
-      <if test="custAddress != null">
-        #{custAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="custCreatetime != null">
-        #{custCreatetime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.ujn.lab3.model.Customer">
-    update customer
-    <set>
-      <if test="custName != null">
-        cust_name = #{custName,jdbcType=VARCHAR},
-      </if>
-      <if test="custUserId != null">
-        cust_user_id = #{custUserId,jdbcType=INTEGER},
-      </if>
-      <if test="custCreateId != null">
-        cust_create_id = #{custCreateId,jdbcType=INTEGER},
-      </if>
-      <if test="custSource != null">
-        cust_source = #{custSource,jdbcType=VARCHAR},
-      </if>
-      <if test="custIndustry != null">
-        cust_industry = #{custIndustry,jdbcType=VARCHAR},
-      </if>
-      <if test="custLevel != null">
-        cust_level = #{custLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="custLinkman != null">
-        cust_linkman = #{custLinkman,jdbcType=VARCHAR},
-      </if>
-      <if test="custPhone != null">
-        cust_phone = #{custPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="custMobile != null">
-        cust_mobile = #{custMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="custZipcode != null">
-        cust_zipcode = #{custZipcode,jdbcType=VARCHAR},
-      </if>
-      <if test="custAddress != null">
-        cust_address = #{custAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="custCreatetime != null">
-        cust_createtime = #{custCreatetime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where cust_id = #{custId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.ujn.lab3.model.Customer">
+    <insert id="insertSelective" parameterType="cn.edu.ujn.lab3.model.Customer">
+        insert into customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="custId != null">
+                cust_id,
+            </if>
+            <if test="custName != null">
+                cust_name,
+            </if>
+            <if test="custUserId != null">
+                cust_user_id,
+            </if>
+            <if test="custCreateId != null">
+                cust_create_id,
+            </if>
+            <if test="custSource != null">
+                cust_source,
+            </if>
+            <if test="custIndustry != null">
+                cust_industry,
+            </if>
+            <if test="custLevel != null">
+                cust_level,
+            </if>
+            <if test="custLinkman != null">
+                cust_linkman,
+            </if>
+            <if test="custPhone != null">
+                cust_phone,
+            </if>
+            <if test="custMobile != null">
+                cust_mobile,
+            </if>
+            <if test="custZipcode != null">
+                cust_zipcode,
+            </if>
+            <if test="custAddress != null">
+                cust_address,
+            </if>
+            <if test="custCreatetime != null">
+                cust_createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="custId != null">
+                #{custId,jdbcType=INTEGER},
+            </if>
+            <if test="custName != null">
+                #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="custUserId != null">
+                #{custUserId,jdbcType=INTEGER},
+            </if>
+            <if test="custCreateId != null">
+                #{custCreateId,jdbcType=INTEGER},
+            </if>
+            <if test="custSource != null">
+                #{custSource,jdbcType=VARCHAR},
+            </if>
+            <if test="custIndustry != null">
+                #{custIndustry,jdbcType=VARCHAR},
+            </if>
+            <if test="custLevel != null">
+                #{custLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="custLinkman != null">
+                #{custLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="custPhone != null">
+                #{custPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="custMobile != null">
+                #{custMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="custZipcode != null">
+                #{custZipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="custAddress != null">
+                #{custAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="custCreatetime != null">
+                #{custCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.ujn.lab3.model.Customer">
+        update customer
+        <set>
+            <if test="custName != null">
+                cust_name = #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="custUserId != null">
+                cust_user_id = #{custUserId,jdbcType=INTEGER},
+            </if>
+            <if test="custCreateId != null">
+                cust_create_id = #{custCreateId,jdbcType=INTEGER},
+            </if>
+            <if test="custSource != null">
+                cust_source = #{custSource,jdbcType=VARCHAR},
+            </if>
+            <if test="custIndustry != null">
+                cust_industry = #{custIndustry,jdbcType=VARCHAR},
+            </if>
+            <if test="custLevel != null">
+                cust_level = #{custLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="custLinkman != null">
+                cust_linkman = #{custLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="custPhone != null">
+                cust_phone = #{custPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="custMobile != null">
+                cust_mobile = #{custMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="custZipcode != null">
+                cust_zipcode = #{custZipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="custAddress != null">
+                cust_address = #{custAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="custCreatetime != null">
+                cust_createtime = #{custCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where cust_id = #{custId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.ujn.lab3.model.Customer">
     update customer
     set cust_name = #{custName,jdbcType=VARCHAR},
       cust_user_id = #{custUserId,jdbcType=INTEGER},

@@ -4,7 +4,6 @@ import cn.edu.ujn.lab3.dao.UserMapper;
 import cn.edu.ujn.lab3.model.ResultMSG;
 import cn.edu.ujn.lab3.model.User;
 import cn.edu.ujn.lab3.service.IUserService;
-import cn.edu.ujn.lab3.service.TokenService;
 import cn.edu.ujn.lab3.utils.JWTUtils;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -26,9 +24,6 @@ public class LoginUserController {
 
     @Autowired
     private UserMapper userMapper;
-    //private PasswordEncoder passwordEncoder;
-    @Autowired
-    private TokenService tokenService;
 
     private Gson gson = new Gson();
 
@@ -74,6 +69,11 @@ public class LoginUserController {
         }
     }
 
+    @GetMapping("/")
+    public String initPage() {
+        return "/login";
+    }
+
     @GetMapping("/login")
     public String toLoginPage() {
         return "redirect:/pages/loginpage.html";
@@ -96,7 +96,7 @@ public class LoginUserController {
             ResultMSG success = ResultMSG.success();
             Cookie usernameCookie = new Cookie("username", byUsercode.getUsername());
             usernameCookie.setPath("/");
-            Cookie usercodeCookie = new Cookie("usercode", byUsercode.getUsercode());
+            Cookie usercodeCookie = new Cookie("userid", String.valueOf(byUsercode.getUserId()));
             usercodeCookie.setPath("/");
             Cookie jwtTokenCookie = new Cookie("jwtToken", jwtToken);
             jwtTokenCookie.setPath("/");
@@ -107,7 +107,7 @@ public class LoginUserController {
             System.out.println("success = " + success);
             return success;
         }
-        return ResultMSG.error(444,"账号密码错误,请检查后再试!");
+        return ResultMSG.error(444, "账号密码错误,请检查后再试!");
     }
 
     @GetMapping("/main")

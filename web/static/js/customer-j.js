@@ -2,27 +2,17 @@ var totalRecord, currentPage;
 //1、页面加载完成以后，直接去发送ajax请求,要到分页数据
 $(function () {
     //去首页
-    to_page(1);
+    //to_page(1);
+    getops("customerFrom");     //页面加载时将下拉项渲染进页面
+    getops("custIndustry");
+    getops("custLevel");
+
 });
 
-function to_page(pn) {
-    $.ajax({
-        url: "/Lab3Demo/getAllCustomer",
-        data: "pn="+pn,
-        type: "POST",
-        success: function (result) {
-            //console.log(result);
-            //1、解析并显示员工数据
-            build_emps_table(result);
-            //2、解析并显示分页信息
-            build_page_info(result);
-            //3、解析显示分页条数据
-            build_page_nav(result);
-        }
-    });
-}
+/**************************************************分页操作的js*********************************************************/
 
-function build_emps_table(result) {
+
+function build_cust_table(result) {         //渲染用户信息进入表格
     //清空table表格
     $("#tableBody").empty();
     var customers = result.pageInfo.list;
@@ -30,21 +20,21 @@ function build_emps_table(result) {
 
         strTbl = `
                     <tr>
-                        <th scope="row" id="customerid">` + customer.custId + `</th>
-                        <th id="customername">` + customer.custName + `</th>
-                        <th id="customersource">` + customer.custSource + `</th>
-                        <th id="customerindustry">` + customer.custIndustry + `</th>
-                        <th id="customerlevel">` + customer.custLevel + `</th>
-                        <th id="customerphone">` + customer.custPhone + `</th>
-                        <th id="customermobile">` + customer.custMobile + `</th>
+                        <th scope="row" id="customerid"> ${customer.custId}</th>
+                        <th id="customername">${customer.custName}</th>
+                        <th id="customersource">${customer.custSource} </th>
+                        <th id="customerindustry">${customer.custIndustry}</th>
+                        <th id="customerlevel">${customer.custLevel}</th>
+                        <th id="customerphone">${customer.custPhone}</th>
+                        <th id="customermobile">${customer.custMobile}</th>
                         <th>
-                            <button class="btn btn-primary btn-xs"><span><svg width="1em" height="1em"
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" onclick= "editCustomer(` + customer.custId + `)"><span><svg width="1em" height="1em"
                                                                   viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
                                                                   xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                   d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                         </svg></span> 编辑</button>
-                            <button class="btn btn-danger btn-xs"><span><svg width="1em" height="1em"
+                            <button class="btn btn-danger btn-xs" onclick="deleteCustomer(` + customer.custId + `)"><span><svg width="1em" height="1em"
                                                                  viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor"
                                                                  xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
@@ -55,38 +45,7 @@ function build_emps_table(result) {
                         </th>
                     </tr>`;
         $("#tableBody").append(strTbl);
-        /**
-         <button class="">
-         <span class="" aria-hidden="true"></span>
-         编辑
-         </button>
-         */
-        /*
-         /* var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
-                     var empIdTd = $("<td></td>").append(item.empId);
-                     var empNameTd = $("<td></td>").append(item.empName);
-                     var genderTd = $("<td></td>").append(item.gender=='M'?"男":"女");
-                     var emailTd = $("<td></td>").append(item.email);
-                     var deptNameTd = $("<td></td>").append(item.department.deptName);
-        var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
-                        .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
-                    //为编辑按钮添加一个自定义的属性，来表示当前员工id
-                    editBtn.attr("edit-id", item.empId);
-                    var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
-                        .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
-                    //为删除按钮添加一个自定义的属性来表示当前删除的员工id
-                    delBtn.attr("del-id", item.empId);
-                    var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);*/
-        //var delBtn =
-        //append方法执行完成以后还是返回原来的元素
-        /*$("<tr></tr>").append(checkBoxTd)
-            .append(empIdTd)
-            .append(empNameTd)
-            .append(genderTd)
-            .append(emailTd)
-            .append(deptNameTd)
-            .append(btnTd)
-            .appendTo("#emps_table tbody");*/
+
     });
 }
 
@@ -137,6 +96,7 @@ function build_page_nav(result) {
         });
     }
 
+    0
     //添加首页和前一页 的提示
     ul.append(firstPageLi).append(prePageLi);
     //1,2，3遍历给ul中添加页码提示
@@ -158,3 +118,139 @@ function build_page_nav(result) {
     var navEle = $("<nav></nav>").append(ul);
     navEle.appendTo("#page_nav_area");
 }
+
+/*//清空表单样式及内容
+function reset_form(ele) {
+    $(ele)[0].reset();
+    //清空表单样式
+    $(ele).find("*").removeClass("has-error has-success");
+    $(ele).find(".help-block").text("");
+}*/
+/**********************************************************************************************************************/
+
+//获得下拉项
+function getops(loc) {
+    $.ajax({
+        url: "/Lab3Demo/get" + loc,
+        type: "POST",
+        success: function (success) {
+            intoCusSource(loc, success.sources);
+        }
+    })
+}
+
+//渲染进页面
+function intoCusSource(location, sources) {
+
+    for (let i = 0; i < sources.length; i++) {
+        /*opStr = ;*/
+        $("#" + location).append("<option value='" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
+        $("#edit_" + location).append("<option value='edit_" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
+        $("#new_" + location).append("<option value='new_" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
+    }
+}
+
+
+/*****************************************************查询操作的js*******************************************************/
+
+function to_page(pn) {
+    let cusName = $("#customerName").val();
+    let cusSour = $("#customerFrom").val().replace(/[^0-9]/ig, "");
+    let cusIndus = $("#custIndustry").val().replace(/[^0-9]/ig, "");
+    let cusLevel = $("#custLevel").val().replace(/[^0-9]/ig, "");
+    var s = JSON.stringify({
+        "pn": pn,
+        "customer": {
+            "custName": cusName,
+            "custSource": cusSour,
+            "custIndustry": cusIndus,
+            "custLevel": cusLevel
+        }
+    });
+    //console.log(s);
+    $.ajax({
+        url: "/Lab3Demo/getCustomerBySel",
+        contentType: "application/json",
+        data: s,
+        type: "POST",
+        success: function (result) {
+            // console.log(result.pageInfo);
+            //1、解析并显示用户数据
+            build_cust_table(result);
+            //2、解析并显示分页信息
+            build_page_info(result);
+            //3、解析显示分页条数据
+            build_page_nav(result);
+        }
+    });
+}
+
+
+$("#selectCus").click(
+    function () {
+        to_page(1);
+    }
+)
+
+/******************************************************新建客户*********************************************************/
+
+// 创建客户
+function createCustomer() {
+    /*$.post("/Lab3Demo/createNewCus",
+        $("#new_customer_form").serialize(), function (data) {
+            if (data == "OK") {
+                alert("客户创建成功！");
+                window.location.reload();
+            } else {
+                alert("客户创建失败！");
+                window.location.reload();
+            }
+        });*/
+    var newCusCreateId = document.cookie.replace(/(?:(?:^|.*;\s*)userid\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    var newCusName = $("#new_customerName").val();
+    var newCusFrom = $("#new_customerFrom").val().replace(/[^0-9]/ig, "");
+    var newCusIndustry = $("#new_custIndustry").val().replace(/[^0-9]/ig, "");
+    var newCusLevel = $("#new_custLevel").val().replace(/[^0-9]/ig, "");
+    var newCusLinkMan = $("#new_linkMan").val();
+    var newPhone = $("#new_phone").val();
+    var newMobile = $("#new_mobile").val();
+    var newZipcode = $("#new_zipcode").val();
+    var newAddress = $("#new_address").val();
+    if (newCusName == "" || newCusFrom == "" || newCusIndustry == "" || newCusLevel == "" || newCusLinkMan == ""
+        || newPhone == "" || newMobile == "" || newZipcode == "" || newAddress == "") {
+        alert("请填写完整信息!");
+        return;
+    }
+    var cusInfo = JSON.stringify({
+        "custCreateId": newCusCreateId,
+        "custName": newCusName,
+        "custSource": newCusFrom,
+        "custIndustry": newCusIndustry,
+        "custLevel": newCusLevel,
+        "custLinkman": newCusLinkMan,
+        "custPhone": newPhone,
+        "custMobile": newMobile,
+        "custZipcode": newZipcode,
+        "custAddress": newAddress
+    });
+    console.log(cusInfo)
+    $.ajax({
+        url: "/Lab3Demo/createNewCus",
+        type: "POST",
+        contentType: "application/json",
+        data: cusInfo,
+        success: function (result) {
+            if (result.code == 200) {
+                alert("新建成功!");
+                window.location.reload();
+            } else {
+                alert("创建失败!")
+                window.location.reload();
+            }
+        }
+    })
+}
+
+
+var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+$("#user-name-label-loc").html(username);

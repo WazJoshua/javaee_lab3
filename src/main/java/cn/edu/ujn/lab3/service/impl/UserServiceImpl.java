@@ -38,10 +38,12 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean loginUser(User user) {
         User byUsercode = userMapper.findByUsercode(user.getUsercode());
+        //System.out.println("byUsercode = " + byUsercode);
         //判断是否存在用户
         if (byUsercode == null) {                                            //不存在用户,则直接返回登录失败
             return false;
         }
+
         if (byUsercode.getPassword().equals(user.getPassword())) {           //密码正确
             return true;                                                     //登陆成功
         } else return false;

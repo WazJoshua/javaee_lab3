@@ -1,6 +1,7 @@
 package cn.edu.ujn.lab3.service;
 
 import cn.edu.ujn.lab3.model.Customer;
+import cn.edu.ujn.lab3.service.impl.CUserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,5 +17,11 @@ public interface ICustomerService {
 
 
 
+
+    List<Customer> selectCusBySelVO(Customer customer);
+
+    List<Customer> selectCusBySel(Customer customer);
+
+    boolean insertCustomer(Customer customer);
 
 }

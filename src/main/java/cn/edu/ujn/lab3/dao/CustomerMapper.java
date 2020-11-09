@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface CustomerMapper {
+    List<Customer> selectCusBySel(@Param("customer") Customer customer);
+
     List<Customer> finaAllCustomer();
 
     int deleteByPrimaryKey(Integer custId);
