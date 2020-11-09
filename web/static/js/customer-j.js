@@ -3,7 +3,7 @@ var totalRecord, currentPage;
 $(function () {
     //去首页
     //to_page(1);
-    getops("customerFrom");
+    getops("customerFrom");     //页面加载时将下拉项渲染进页面
     getops("custIndustry");
     getops("custLevel");
 
@@ -174,7 +174,7 @@ function to_page(pn) {
         data: s,
         type: "POST",
         success: function (result) {
-           // console.log(result.pageInfo);
+            // console.log(result.pageInfo);
             //1、解析并显示用户数据
             build_cust_table(result);
             //2、解析并显示分页信息
@@ -192,3 +192,65 @@ $("#selectCus").click(
     }
 )
 
+/******************************************************新建客户*********************************************************/
+
+// 创建客户
+function createCustomer() {
+    /*$.post("/Lab3Demo/createNewCus",
+        $("#new_customer_form").serialize(), function (data) {
+            if (data == "OK") {
+                alert("客户创建成功！");
+                window.location.reload();
+            } else {
+                alert("客户创建失败！");
+                window.location.reload();
+            }
+        });*/
+    var newCusCreateId = document.cookie.replace(/(?:(?:^|.*;\s*)userid\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    var newCusName = $("#new_customerName").val();
+    var newCusFrom = $("#new_customerFrom").val().replace(/[^0-9]/ig, "");
+    var newCusIndustry = $("#new_custIndustry").val().replace(/[^0-9]/ig, "");
+    var newCusLevel = $("#new_custLevel").val().replace(/[^0-9]/ig, "");
+    var newCusLinkMan = $("#new_linkMan").val();
+    var newPhone = $("#new_phone").val();
+    var newMobile = $("#new_mobile").val();
+    var newZipcode = $("#new_zipcode").val();
+    var newAddress = $("#new_address").val();
+    if (newCusName == "" || newCusFrom == "" || newCusIndustry == "" || newCusLevel == "" || newCusLinkMan == ""
+        || newPhone == "" || newMobile == "" || newZipcode == "" || newAddress == "") {
+        alert("请填写完整信息!");
+        return;
+    }
+    var cusInfo = JSON.stringify({
+        "custCreateId": newCusCreateId,
+        "custName": newCusName,
+        "custSource": newCusFrom,
+        "custIndustry": newCusIndustry,
+        "custLevel": newCusLevel,
+        "custLinkman": newCusLinkMan,
+        "custPhone": newPhone,
+        "custMobile": newMobile,
+        "custZipcode": newZipcode,
+        "custAddress": newAddress
+    });
+    console.log(cusInfo)
+    $.ajax({
+        url: "/Lab3Demo/createNewCus",
+        type: "POST",
+        contentType: "application/json",
+        data: cusInfo,
+        success: function (result) {
+            if (result.code == 200) {
+                alert("新建成功!");
+                window.location.reload();
+            } else {
+                alert("创建失败!")
+                window.location.reload();
+            }
+        }
+    })
+}
+
+
+var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+$("#user-name-label-loc").html(username);

@@ -502,19 +502,7 @@
         $("#new_address").val("");
     }
 
-    // 创建客户
-    function createCustomer() {
-        $.post("<%=basePath%>customer/create.action",
-            $("#new_customer_form").serialize(), function (data) {
-                if (data == "OK") {
-                    alert("客户创建成功！");
-                    window.location.reload();
-                } else {
-                    alert("客户创建失败！");
-                    window.location.reload();
-                }
-            });
-    }
+
 
     // 通过id获取修改的客户信息
     function editCustomer(id) {
@@ -604,9 +592,6 @@
         }
     });
 
-
-    var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-    $("#user-name-label-loc").html(username);
 </script>
 </body>
 </html>

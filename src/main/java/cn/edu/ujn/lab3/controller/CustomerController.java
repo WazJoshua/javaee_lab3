@@ -59,7 +59,8 @@ public class CustomerController {
     @ResponseBody
     public ResultMSG getCusBySel(@RequestBody String customerAndPage) {
         System.out.println("customerAndPage = " + customerAndPage);
-        CustomerWithPageNumber customerWithPageNumber = gson.fromJson(customerAndPage, new TypeToken<CustomerWithPageNumber>(){}.getType());
+        CustomerWithPageNumber customerWithPageNumber = gson.fromJson(customerAndPage, new TypeToken<CustomerWithPageNumber>() {
+        }.getType());
         System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
         Customer customer = customerWithPageNumber.getCustomer();
         int pageNumber = customerWithPageNumber.getPn();
@@ -85,6 +86,18 @@ public class CustomerController {
         ResultMSG success = ResultMSG.success();
         success.put("pageInfo", pageInfo);
         return success;
+    }
+
+
+    @PostMapping("/createNewCus")
+    @ResponseBody
+    public ResultMSG createNewCus(@RequestBody Customer customer) {
+        System.out.println("customer = " + customer);
+        boolean b = customerService.insertCustomer(customer);
+        if (b) {
+            return ResultMSG.success();
+        }
+        return ResultMSG.error();
     }
 
    /* @PostMapping("/updateCustomer")

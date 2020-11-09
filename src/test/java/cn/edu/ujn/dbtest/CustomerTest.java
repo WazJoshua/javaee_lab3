@@ -25,7 +25,7 @@ public class CustomerTest {
     CustomerMapper customerMapper;
 
     @Test
-    public void test01(){
+    public void test01() {
         List<Customer> allCustomer = customerService.findAllCustomer();
         for (Customer c :
                 allCustomer) {
@@ -34,7 +34,7 @@ public class CustomerTest {
     }
 
     @Test
-    public void test02(){
+    public void test02() {
         Customer customer = new Customer();
         customer.setCustLevel("23");
         customer.setCustSource("7");
@@ -46,18 +46,25 @@ public class CustomerTest {
     }
 
     @Test
-    public void test03(){
+    public void test03() {
         Customer customer = new Customer();
         customer.setCustLevel("");
         customer.setCustSource("");
         customer.setCustIndustry("");
         customer.setCustName("");
-        List<Customer> customers = customerService.selectCusBySelOV(customer);
+        List<Customer> customers = customerService.selectCusBySelVO(customer);
         for (Customer c :
                 customers) {
             System.out.println("c = " + c);
         }
 
+    }
+
+    @Test
+    public void testInsert() {
+        Customer customer = new Customer();
+        customer.setCustName("timetest");
+        customerService.insertCustomer(customer);
     }
 
 }
