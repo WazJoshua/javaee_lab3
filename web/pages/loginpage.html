@@ -6,18 +6,45 @@
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+            <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/input-style.css" rel="stylesheet">
 </head>
-<body>
-<h1>登录</h1>
-<form>
-    <div><label id="user-name-label">账号</label><input name="usercode" type="text" id="usercode"></div>
-    <div><label id="password-label">密码</label><input name="password" type="password" id="password"></div>
-    <div>
-        <button type="button" class="btn btn-primary" id="loginButton">登录</button>
+<body style="background-color: #122b40">
+
+<div style="position: absolute;width: 30%;height: 70%;left: 50%;top: 50%;transform: translate(-50%,-50%); background-color:rgba(0,0,0,0.6)" >
+    <div style="position: absolute;width: 100%;height: 40%;">
+        <h1 style="font-size: 60px;text-align: center;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);">
+            login
+        </h1>
     </div>
-    <div id="altMsg"></div>
-</form>
+
+    <form style="position: absolute;height: 60%;top: 40%;left: 50%;transform: translateX(-50%);">
+        <div style="position: relative;width: 300px; margin-bottom: 30px;left: 50%;transform: translateX(-50%);" class="input-effect">
+            <input class="effect-20" placeholder="" name="usercode" type="text" id="usercode">
+            <label id="user-name-label">账号</label>
+            <span class="focus-border">
+            <i></i>
+        </span>
+        </div>
+
+        <div style="position: relative;width: 300px; margin-bottom: 30px;left: 50%;transform: translateX(-50%);" class="input-effect">
+            <input class="effect-20" placeholder="" name="password" type="text" id="password">
+            <label id="password-label">密码</label>
+            <span class="focus-border">
+            <i></i>
+        </span>
+        </div>
+        <br/>
+        <div>
+            <button type="button" class="btn btn-primary" id="loginButton" style="position:absolute;left: 50%;transform: translateX(-50%)">
+                登录
+            </button>
+        </div>
+        <div id="altMsg"></div>
+    </form>
+</div>
+
+
 </body>
 <script>
     $("#loginButton").click(
@@ -31,22 +58,33 @@
             let s = JSON.stringify({"usercode": usercode, "password": password});
             $.ajax({
                 type: "POST",
-                url: "/Lab3Demo/loginUser",
+                url: "/Lab3Demo1/loginUser",
                 contentType: "application/json",
                 data: s,
                 success: function (success) {
                     if (success.code == 200) {
-                        window.location.href = "/Lab3Demo/main"
+                        window.location.href = "/Lab3Demo1/main"
                     } else if (success.code == 416) {
                         $("#altMsg").html(success.msg);
                     } else if (success.code == 444) {
                         $("#altMsg").html(success.msg);
                     } else {
-                        window.location.href = "/Lab3Demo/error"
+                        window.location.href = "/Lab3Demo1/error"
                     }
                 }
             })
         }
-    )
+    );
+
+    //输入框中有内容，label不复原
+    $(".col-3 input").val("");
+    $(".input-effect input").focusout(function () {
+        if ($(this).val() != "") {
+            $(this).addClass("has-content");
+        } else {
+            $(this).removeClass("has-content");
+        }
+    })
+
 </script>
 </html>
