@@ -2,7 +2,7 @@ var totalRecord, currentPage;
 //1、页面加载完成以后，直接去发送ajax请求,要到分页数据
 $(function () {
     //去首页
-    //to_page(1);
+    to_page(1);
     getops("customerFrom");     //页面加载时将下拉项渲染进页面
     getops("custIndustry");
     getops("custLevel");
@@ -196,16 +196,7 @@ $("#selectCus").click(
 
 // 创建客户
 function createCustomer() {
-    /*$.post("/Lab3Demo/createNewCus",
-        $("#new_customer_form").serialize(), function (data) {
-            if (data == "OK") {
-                alert("客户创建成功！");
-                window.location.reload();
-            } else {
-                alert("客户创建失败！");
-                window.location.reload();
-            }
-        });*/
+
     var newCusCreateId = document.cookie.replace(/(?:(?:^|.*;\s*)userid\s*\=\s*([^;]*).*$)|^.*$/, '$1');
     var newCusName = $("#new_customerName").val();
     var newCusFrom = $("#new_customerFrom").val().replace(/[^0-9]/ig, "");
@@ -251,6 +242,130 @@ function createCustomer() {
     })
 }
 
+function clearNewCustomer() {
+    $("#new_customerName").val("");
+    $("#new_customerFrom").val("")
+    $("#new_custIndustry").val("")
+    $("#new_custLevel").val("")
+    $("#new_linkMan").val("");
+    $("#new_phone").val("");
+    $("#new_mobile").val("");
+    $("#new_zipcode").val("");
+    $("#new_address").val("");
+}
 
+function clearEditCustomer() {
+    $("#edit_customerName").val("");
+    $("#edit_customerFrom").val("");
+    $("#edit_custIndustry").val("");
+    $("#edit_custLevel").val("");
+    $("#edit_linkMan").val("");
+    $("#edit_phone").val("");
+    $("#edit_mobile").val("");
+    $("#edit_zipcode").val("");
+    $("#edit_address").val("");
+}
+
+// 通过id获取修改的客户信息
+function editCustomer(id) {
+    clearEditCustomer();
+    $.ajax({
+        type: "POST",
+        url: "/Lab3Demo/getCustomerById",
+        data: "id=" + id,
+        success: function (data) {
+            //console.log(data.customer)
+            $("#edit_cust_id").val(data.customer.custId);
+            $("#edit_customerName").val(data.customer.custName);
+            $("#edit_customerFrom").find('option[value="edit_' + data.customer.custSource + '"]').prop("selected", true);
+            $("#edit_custIndustry").find('option[value="edit_' + data.customer.custIndustry + '"]').prop("selected", true);
+            $("#edit_custLevel").find('option[value="edit_' + data.customer.custLevel + '"]').prop("selected", true);
+            $("#edit_linkMan").val(data.customer.custLinkman);
+            $("#edit_phone").val(data.customer.custPhone);
+            $("#edit_mobile").val(data.customer.custMobile);
+            $("#edit_zipcode").val(data.customer.custZipcode);
+            $("#edit_address").val(data.customer.custAddress);
+        }
+    });
+}
+
+// 执行修改客户操作
+function updateCustomer() {
+
+    var editCustId = $("#edit_cust_id").val();
+    var editCustName = $("#edit_customerName").val();
+    var editCustFrom = $("#edit_customerFrom").val().replace(/[^0-9]/ig, "");
+    var editCustIndustry = $("#edit_custIndustry").val().replace(/[^0-9]/ig, "");
+    var editCustLevel = $("#edit_custLevel").val().replace(/[^0-9]/ig, "");
+    var editCustLinkMan = $("#edit_linkMan").val();
+    var editCustPhone = $("#edit_phone").val();
+    var editCustMobile = $("#edit_mobile").val();
+    var editCustZipcode = $("#edit_zipcode").val();
+    var editCustAddress = $("#edit_address").val();
+
+    var editCus = JSON.stringify({
+        "custId": editCustId,
+        "custName": editCustName,
+        "custSource": editCustFrom,
+        "custIndustry": editCustIndustry,
+        "custLevel": editCustLevel,
+        "custLinkman": editCustLinkMan,
+        "custPhone": editCustPhone,
+        "custMobile": editCustMobile,
+        "custZipcode": editCustZipcode,
+        "custAddress": editCustAddress
+
+    });
+    console.log(editCus)
+    $.ajax({
+        url: "/Lab3Demo/updateCusById",
+        type: "POST",
+        contentType: "application/json",
+        data: editCus,
+        success: function (result) {
+            if (result.code == 200) {
+                alert("修改成功!")
+                window.location.reload();
+            } else {
+                alert("修改失败!")
+                window.location.reload();
+            }
+        }
+    })
+
+}
+
+// 删除客户
+function deleteCustomer(id) {
+    /*if (confirm('确实要删除该客户吗?')) {
+        $.post("<%=basePath%>customer/delete.action", {"id": id},
+            function (data) {
+                if (data == "OK") {
+                    alert("客户删除成功！");
+                    window.location.reload();
+                } else {
+                    alert("删除客户失败！");
+                    window.location.reload();
+                }
+            });
+    }*/
+    if (confirm('确实要删除该客户吗?')) {
+        $.ajax({
+            url: "/Lab3Demo/deleteCusById",
+            type: "POST",
+            data: "custId=" + id,
+            success: function (result) {
+                if (result.code == 200) {
+                    alert("删除成功!");
+                    window.location.reload();
+                } else {
+                    alert("删除失败!");
+                    window.location.reload();
+                }
+            }
+        })
+    }
+
+}
 var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 $("#user-name-label-loc").html(username);
