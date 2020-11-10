@@ -6,7 +6,6 @@ import cn.edu.ujn.lab3.service.IBaseDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,4 +29,25 @@ public class BaseDictServiceImpl implements IBaseDictService {
         }*/
         return baseDicts;
     }
+
+    @Override
+    public boolean insertDictSource(BaseDict baseDict) {
+        int insert = baseDictMapper.insert(baseDict);
+        if (insert == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int selectIdMaximum() {
+        return baseDictMapper.selectIdMaximum();
+    }
+
+    @Override
+    public int selectSortMaximum() {
+        return baseDictMapper.selectSortMaximum();
+    }
+
+
 }

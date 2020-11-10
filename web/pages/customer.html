@@ -17,6 +17,7 @@
     <!-- Custom Fonts -->
     <link href="http://localhost:8765/Lab3Demo/static/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="http://localhost:8765/Lab3Demo/static/css/boot-crm.css" rel="stylesheet" type="text/css"/>
+    <link href="../static/css/input-style.css">
 </head>
 <body>
 <div id="wrapper">
@@ -254,6 +255,9 @@
         </div>
         <a href="#" class="btn btn-primary" data-toggle="modal"
            data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
+
+        <a href="#" class="btn btn-primary" data-toggle="modal"
+           data-target="#sourcedialog" onclick="clearSource()">添加职业</a>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -298,7 +302,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">新建客户信息</h4>
+                <h4 class="modal-title" id="myModalLabel1">新建客户信息</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="new_customer_form">
@@ -382,6 +386,7 @@
         </div>
     </div>
 </div>
+
 <!-- 修改客户模态框 -->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
@@ -391,7 +396,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">修改客户信息</h4>
+                <h4 class="modal-title" id="myModalLabel2">修改客户信息</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="edit_customer_form">
@@ -474,6 +479,34 @@
         </div>
     </div>
 </div>
+
+<!-- 修改客户模态框 -->
+<div class="modal fade" id="sourcedialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel3">修改客户信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="newsource">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="newsourceinput" placeholder="新的职业" name="newsource"/>
+                        </div>
+                        <label for="edit_phone" class="col-sm-2 control-label">新的职业</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createSource()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- 引入js文件 -->
 <!-- jQuery -->
 <script src="http://localhost:8765/Lab3Demo/static/js/jquery-1.11.3.min.js"></script>
@@ -502,6 +535,10 @@
         $("#new_address").val("");
     }
 
+    //清空新建职业窗口中的数据
+    function clearSource() {
+        $("#newsourceinput").val("");
+    }
 
 
     // 通过id获取修改的客户信息
