@@ -70,4 +70,9 @@ public class CustomerServiceImpl implements ICustomerService {
         }
         return true;
     }
+
+    @Override
+    public int deleteCustomer(int id) {
+        return customerMapper.deleteByPrimaryKey(id);
+    }
 }
