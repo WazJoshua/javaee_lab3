@@ -23,4 +23,5 @@ public interface ICustomerService {
 
     int updateCustomer(Customer customer);
 
+    boolean updateCusById(Customer customer);
 }

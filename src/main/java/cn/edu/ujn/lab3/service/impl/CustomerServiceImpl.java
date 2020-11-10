@@ -80,4 +80,11 @@ public class CustomerServiceImpl implements ICustomerService {
     public int updateCustomer(Customer c) {
         return customerMapper.updateByPrimaryKey(c);
     }
+
+    @Override
+    public boolean updateCusById(Customer customer) {
+        return customerMapper.updateByPrimaryKey(customer);
+    }
+
+
 }
