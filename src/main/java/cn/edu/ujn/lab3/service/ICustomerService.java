@@ -21,4 +21,6 @@ public interface ICustomerService {
 
     int deleteCustomer(int id);
 
+    int updateCustomer(Customer customer);
+
 }

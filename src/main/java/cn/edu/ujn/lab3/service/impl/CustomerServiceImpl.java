@@ -75,4 +75,9 @@ public class CustomerServiceImpl implements ICustomerService {
     public int deleteCustomer(int id) {
         return customerMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int updateCustomer(Customer c) {
+        return customerMapper.updateByPrimaryKey(c);
+    }
 }
