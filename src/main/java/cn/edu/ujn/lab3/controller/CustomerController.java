@@ -58,10 +58,10 @@ public class CustomerController {
     @PostMapping("/getCustomerBySel")
     @ResponseBody
     public ResultMSG getCusBySel(@RequestBody String customerAndPage) {
-        System.out.println("customerAndPage = " + customerAndPage);
+        //System.out.println("customerAndPage = " + customerAndPage);
         CustomerWithPageNumber customerWithPageNumber = gson.fromJson(customerAndPage, new TypeToken<CustomerWithPageNumber>() {
         }.getType());
-        System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
+        //System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
         Customer customer = customerWithPageNumber.getCustomer();
         System.out.println(customer);
         int pageNumber = customerWithPageNumber.getPn();
@@ -97,13 +97,41 @@ public class CustomerController {
         return ResultMSG.error();
     }
 
-   /* @PostMapping("/updateCustomer")
+    @PostMapping("/getCustomerById")
     @ResponseBody
-    public ResultMSG updateCus(@RequestBody String customer){
+    public ResultMSG getCusById(@RequestParam(value = "id") Integer id) {
+        System.out.println("id = " + id);
+        Customer customer = new Customer();
+        customer.setCustId(id);
+        System.out.println("customer = " + customer);
+        List<Customer> customers = customerService.selectCusBySel(customer);
+        if (customers.get(0) == null) {
+            return ResultMSG.error();
+        }
+        Customer resultCus = customers.get(0);
+        System.out.println("resultCus = " + resultCus);
+        ResultMSG success = ResultMSG.success();
+        success.put("customer", resultCus);
+        return success;
+    }
 
+    @PostMapping("/updateCusById")
+    @ResponseBody
+    public ResultMSG updateCusById(@RequestBody Customer customer) {
+        boolean b = customerService.updateCusById(customer);
+        if (b) {
+            return ResultMSG.success();
+        } else {
+            return ResultMSG.error();
+        }
+    }
 
-
-    }*/
-
-
+    @PostMapping("/deleteCusById")
+    @ResponseBody
+    public ResultMSG deleteCusById(@RequestParam(value = "custId") Integer id) {
+        boolean b = customerService.deleteCusById(id);
+        if (b) {
+            return ResultMSG.success();
+        } else return ResultMSG.error();
+    }
 }

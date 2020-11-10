@@ -43,7 +43,7 @@
       <if test="username != null">
         user_name,
       </if>
-      <if test="userpassword != null">
+      <if test="password != null">
         user_password,
       </if>
       <if test="userState != null">
@@ -60,7 +60,7 @@
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="userpassword != null">
+      <if test="password != null">
         #{userpassword,jdbcType=VARCHAR},
       </if>
       <if test="userState != null">
@@ -77,8 +77,8 @@
       <if test="username != null">
         user_name = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="userpassword != null">
-        user_password = #{userpassword,jdbcType=VARCHAR},
+      <if test="password != null">
+        user_password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="userState != null">
         user_state = #{userState,jdbcType=INTEGER},
@@ -90,7 +90,7 @@
     update sys_user
     set user_code = #{usercode,jdbcType=VARCHAR},
       user_name = #{username,jdbcType=VARCHAR},
-      user_password = #{userpassword,jdbcType=VARCHAR},
+      user_password = #{password,jdbcType=VARCHAR},
       user_state = #{userState,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>

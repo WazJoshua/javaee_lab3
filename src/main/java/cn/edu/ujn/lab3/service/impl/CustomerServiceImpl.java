@@ -70,4 +70,21 @@ public class CustomerServiceImpl implements ICustomerService {
         }
         return true;
     }
+
+    @Override
+    public boolean updateCusById(Customer customer) {
+        int i = customerMapper.updateByPrimaryKeySelective(customer);
+        if (i == -1)
+            return false;
+        else
+            return true;
+    }
+
+    @Override
+    public boolean deleteCusById(Integer id) {
+        int i = customerMapper.deleteByPrimaryKey(id);
+        if (i == -1)
+            return false;
+        else return true;
+    }
 }

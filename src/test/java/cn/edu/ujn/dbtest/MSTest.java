@@ -3,7 +3,6 @@ package cn.edu.ujn.dbtest;
 import cn.edu.ujn.lab3.dao.UserMapper;
 import cn.edu.ujn.lab3.model.User;
 import cn.edu.ujn.lab3.service.IUserService;
-import cn.edu.ujn.lab3.service.impl.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class MSTest {
     IUserService userService;
 
     @Test
-    public void test01(){
+    public void test01() {
         User user = new User();
         user.setPassword("123");
         user.setUsercode("m0001");
@@ -33,9 +32,10 @@ public class MSTest {
     }
 
     @Test
-    public void mapperTest(){
+    public void mapperTest() {
         User byUsercode = userMapper.findByUsercode("m0001");
         System.out.println("byUsercode = " + byUsercode);
     }
+
 
 }
