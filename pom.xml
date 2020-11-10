@@ -210,7 +210,7 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -222,10 +222,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <!--增加jvm参数-->
+                    &lt;!&ndash;增加jvm参数&ndash;&gt;
                     <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>

@@ -74,6 +74,7 @@ public class LoginUserController {
         return "/login";
     }
 
+
     @GetMapping("/login")
     public String toLoginPage() {
         return "redirect:/pages/loginpage.html";

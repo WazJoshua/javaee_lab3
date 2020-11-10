@@ -18,8 +18,6 @@ public interface CustomerMapper {
 
     Customer selectByPrimaryKey(Integer custId);
 
-    List<Customer> selectSelective(@Param("record") Customer record);
-
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);

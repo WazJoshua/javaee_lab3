@@ -1,8 +1,6 @@
 package cn.edu.ujn.lab3.model;
-
 import cn.edu.ujn.lab3.constant.CHttpStatus;
 import cn.edu.ujn.lab3.utils.CStringUtils;
-
 import java.util.HashMap;
 
 /**
@@ -22,8 +20,7 @@ public class ResultMSG extends HashMap<String, Object> {
     //数据对象
     public static final String DATA_TAG = "data";
 
-    public ResultMSG() {
-    }
+
 
     /**
      * @param code 状态码
@@ -74,9 +71,9 @@ public class ResultMSG extends HashMap<String, Object> {
      * @param data 数据对象
      * @return 成功消息
      */
-    public static ResultMSG success(Object data) {
-        return success("操作成功!", data);
-    }
+//    public static ResultMSG success(Object data) {
+//        return success("操作成功!", data);
+//    }
 
     /**
      * 返回成功消息
