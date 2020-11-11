@@ -29,7 +29,7 @@
     insert into sys_user (user_id, user_code, user_name, 
       user_password, user_state)
     values (#{userId,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{userpassword,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER})
+      #{password,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.ujn.lab3.model.User">
     insert into sys_user

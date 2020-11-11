@@ -28,6 +28,13 @@
         where dict_type_code=#{id}
         order by dict_sort
     </select>
+
+    <select id="selectIdMaximum" resultType="java.lang.Integer">
+        SELECT MAX(CAST(dict_id AS SIGNED)) FROM base_dict;
+    </select>
+    <select id="selectSortMaximum" resultType="java.lang.Integer">
+        SELECT MAX(CAST(dict_sort AS SIGNED)) FROM base_dict where dict_type_code = "001";
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from base_dict
     where dict_id = #{dictId,jdbcType=VARCHAR}

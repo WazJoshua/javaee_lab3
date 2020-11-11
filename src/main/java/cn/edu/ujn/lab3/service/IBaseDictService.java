@@ -12,4 +12,10 @@ public interface IBaseDictService {
 
     List<BaseDict> findDicByDicType(String dicCode);
 
+    boolean insertDictSource(BaseDict baseDict);
+
+    int selectIdMaximum();
+
+    int selectSortMaximum();
+
 }
