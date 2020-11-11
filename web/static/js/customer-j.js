@@ -18,7 +18,7 @@ function build_cust_table(result) {         //渲染用户信息进入表格
     var customers = result.pageInfo.list;
     $.each(customers, function (index, customer) {
 
-        strTbl = `
+        var strTbl = `
                     <tr>
                         <th scope="row" id="customerid"> ${customer.custId}</th>
                         <th id="customername">${customer.custName}</th>
@@ -369,3 +369,32 @@ function deleteCustomer(id) {
 }
 var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 $("#user-name-label-loc").html(username);
+
+
+/*******************************************************新键职业********************************************************/
+function createSource() {
+    var newSource = $("#newsourceinput").val();
+    if (newSource == "") {
+        alert("请填写完整信息!");
+        return;
+    }
+    var souInfo = JSON.stringify({
+        "dictItemName": newSource
+    });
+    console.log(souInfo);
+    $.ajax({
+        url: "/Lab3Demo/createSource",
+        type: "POST",
+        contentType: "application/json",
+        data: souInfo,
+        success: function (result) {
+            if (result.code == 200) {
+                alert("新建成功!");
+                window.location.reload();
+            } else {
+                alert("创建失败!")
+                window.location.reload();
+            }
+        }
+    })
+}

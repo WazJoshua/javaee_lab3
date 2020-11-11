@@ -18,4 +18,8 @@ public interface BaseDictMapper {
     int updateByPrimaryKeySelective(BaseDict record);
 
     int updateByPrimaryKey(BaseDict record);
+
+    int selectIdMaximum();
+
+    int selectSortMaximum();
 }

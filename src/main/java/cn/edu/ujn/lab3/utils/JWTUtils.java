@@ -33,6 +33,8 @@ public class JWTUtils {
         return token;
     }
 
+
+
     public static Claims checkJWT(String token){
         try {
             final Claims claims =Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
