@@ -224,7 +224,7 @@ function createCustomer() {
         "custZipcode": newZipcode,
         "custAddress": newAddress
     });
-    console.log(cusInfo)
+    //console.log(cusInfo)
     $.ajax({
         url: "/Lab3Demo/createNewCus",
         type: "POST",
@@ -367,6 +367,7 @@ function deleteCustomer(id) {
     }
 
 }
+
 var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 $("#user-name-label-loc").html(username);
 

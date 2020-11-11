@@ -48,17 +48,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**", "/")
                 .permitAll()
 
-                /*.and()
+                .and()
                 .formLogin()
-                .loginPage("/pages/loginpage.html")
-                .loginProcessingUrl("/loginUser")
+                .loginPage("/pages/loginpage.html").permitAll();
+                /*.loginProcessingUrl("/loginUser")
                 .successForwardUrl("/login/success")
                 .usernameParameter("usercode")
                 .passwordParameter("password")
 
-                .and()*/
+                .and();*/
 
-        ;
+
         http.csrf().disable();
         /*http.cors();        //开启跨域*/
     }
