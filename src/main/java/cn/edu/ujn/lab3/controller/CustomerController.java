@@ -58,18 +58,16 @@ public class CustomerController {
     @PostMapping("/getCustomerBySel")
     @ResponseBody
     public ResultMSG getCusBySel(@RequestBody String customerAndPage) {
-        System.out.println("customerAndPage = " + customerAndPage);
+        //System.out.println("customerAndPage = " + customerAndPage);
         CustomerWithPageNumber customerWithPageNumber = gson.fromJson(customerAndPage, new TypeToken<CustomerWithPageNumber>() {
         }.getType());
-        System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
+        //System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
         Customer customer = customerWithPageNumber.getCustomer();
         int pageNumber = customerWithPageNumber.getPn();
         PageHelper.startPage(pageNumber, 5);
         List<Customer> customers = customerService.selectCusBySel(customer);
 
         PageInfo pageInfo = new PageInfo(customers, 5);
-
-        //List<Customer> customersOV = customerService.selectCusBySelOV(customer);
         List<Customer> nCustomers = new ArrayList<Customer>();
         for (Customer c :
                 customers) {
@@ -100,13 +98,13 @@ public class CustomerController {
         return ResultMSG.error();
     }
 
-   /* @PostMapping("/updateCustomer")
+
+    @PostMapping("/deleteCusById")
     @ResponseBody
-    public ResultMSG updateCus(@RequestBody String customer){
-
-
-
-    }*/
-
-
+    public ResultMSG deleteCusById(@RequestParam(value = "custId") Integer id) {
+        boolean b = customerService.deleteCusById(id);
+        if (b) {
+            return ResultMSG.success();
+        } else return ResultMSG.error();
+    }
 }

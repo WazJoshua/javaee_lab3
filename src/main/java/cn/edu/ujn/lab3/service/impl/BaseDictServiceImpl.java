@@ -13,6 +13,7 @@ import java.util.List;
  * @Author:Joshua
  * @Date:2020/11/8
  */
+
 @Service
 public class BaseDictServiceImpl implements IBaseDictService {
 
@@ -28,6 +29,7 @@ public class BaseDictServiceImpl implements IBaseDictService {
                 baseDicts) {
             dictItemNames.add(b.getDictItemName());
         }*/
+
         return baseDicts;
     }
 }

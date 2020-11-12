@@ -23,6 +23,9 @@
         <property name="maxWait" value="${jdbc.maxWait}"></property>
     </bean>
 
+
+
+
     <!--==========================================MyBatis整合配置=================================================-->
     <!--MyBatis配置-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
