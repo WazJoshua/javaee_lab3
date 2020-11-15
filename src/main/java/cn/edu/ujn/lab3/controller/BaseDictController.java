@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.List;
 import java.util.UUID;
 
@@ -75,14 +77,28 @@ public class BaseDictController {
         return success;
     }
 
+    @PostMapping("/createItem")
+    @ResponseBody
+    public ResultMSG addItem(@RequestBody BaseDict baseDict) {
+        System.out.println(baseDict);
+        baseDict.setDictEnable("1");
+        baseDict.setDictSort(baseDictService.selectSortMaximum(baseDict.getDictTypeCode()) + 1);
+        baseDict.setDictId(Integer.toString(baseDictService.selectIdMaximum() + 1));
+        boolean b = baseDictService.insertDictSource(baseDict);
+        System.out.println(b);
+        if (b) {
+            return ResultMSG.success();
+        } else return ResultMSG.error();
+    }
+
     @PostMapping("/createSource")
     @ResponseBody
     public ResultMSG addSource(@RequestBody BaseDict baseDict) {
+        Format f = new DecimalFormat("000");
         System.out.println(baseDict);
         baseDict.setDictEnable("1");
-        baseDict.setDictTypeCode("001");
-        baseDict.setDictTypeName("客户行业");
-        baseDict.setDictSort(baseDictService.selectSortMaximum() + 1);
+        baseDict.setDictTypeCode(f.format(baseDictService.selectTypeCodeMaximum()+1));
+        baseDict.setDictSort(1);
         baseDict.setDictId(Integer.toString(baseDictService.selectIdMaximum() + 1));
         boolean b = baseDictService.insertDictSource(baseDict);
         System.out.println(b);

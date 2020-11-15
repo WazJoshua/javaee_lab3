@@ -45,8 +45,8 @@ public class BaseDictServiceImpl implements IBaseDictService {
     }
 
     @Override
-    public int selectSortMaximum() {
-        return baseDictMapper.selectSortMaximum();
+    public int selectSortMaximum(String s) {
+        return baseDictMapper.selectSortMaximum(s);
     }
 
     @Override
@@ -57,6 +57,11 @@ public class BaseDictServiceImpl implements IBaseDictService {
     @Override
     public List<BaseDict> findAllTypeName() {
         return baseDictMapper.selectAllTypeName();
+    }
+
+    @Override
+    public int selectTypeCodeMaximum() {
+        return baseDictMapper.selectTypeCodeMaximum();
     }
 
 

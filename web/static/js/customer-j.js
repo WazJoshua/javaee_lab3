@@ -270,8 +270,8 @@ function intoCusSource(location, sources) {
         for (let i = 0; i < sources.length; i++) {
             /*opStr = ;*/
             $("#" + location).append("<option value='" + sources[i].dictTypeCode + "'>" + sources[i].dictTypeName + "</option>");
-            $("#edit_" + location).append("<option value='edit_" + sources[i].dictId + "'>" + sources[i].dictTypeName + "</option>");
-            $("#new_" + location).append("<option value='new_" + sources[i].dictId + "'>" + sources[i].dictTypeName + "</option>");
+            $("#edit_" + location).append("<option value='edit_" + sources[i].dictTypeCode + "'>" + sources[i].dictTypeName + "</option>");
+            $("#new_" + location).append("<option value='" + sources[i].dictTypeCode + "'>" + sources[i].dictTypeName + "</option>");
         }
         return;
     }
@@ -279,8 +279,8 @@ function intoCusSource(location, sources) {
     for (let i = 0; i < sources.length; i++) {
         /*opStr = ;*/
         $("#" + location).append("<option value='" + sources[i].dictItemName + "'>" + sources[i].dictItemName + "</option>");
-        $("#edit_" + location).append("<option value='edit_" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
-        $("#new_" + location).append("<option value='new_" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
+        $("#edit_" + location).append("<option value='edit_" + sources[i].dictItemName + "'>" + sources[i].dictItemName + "</option>");
+        $("#new_" + location).append("<option value='new_" + sources[i].dictItemName + "'>" + sources[i].dictItemName + "</option>");
     }
 }
 
@@ -390,19 +390,23 @@ var username = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*
 $("#user-name-label-loc").html(username);
 
 
-/*******************************************************新键职业********************************************************/
-function createSource() {
-    var newSource = $("#newsourceinput").val();
-    if (newSource == "") {
+/*******************************************************添加条目********************************************************/
+function createItem() {
+    var choosedTypeCode = $("#new_dictTypeName").val();
+    var choosedTypeName = $("#new_dictTypeName option:selected").text();
+    var newItem = $("#newItemInput").val();
+    if (newItem == "") {
         alert("请填写完整信息!");
         return;
     }
     var souInfo = JSON.stringify({
-        "dictItemName": newSource
+        "dictTypeCode": choosedTypeCode,
+        "dictTypeName": choosedTypeName,
+        "dictItemName":newItem
     });
     console.log(souInfo);
     $.ajax({
-        url: "/Lab3Demo/createSource",
+        url: "/Lab3Demo/createItem",
         type: "POST",
         contentType: "application/json",
         data: souInfo,
@@ -417,7 +421,30 @@ function createSource() {
         }
     })
 }
-
+/****************************************************新建字段*********************************************************/
+function createSource(){
+    var newSource = $("#newSourceInput").val();
+    var newSourceItem = $("#newSourceItemInput").val();
+    var s = JSON.stringify({
+        "dictTypeName":newSource,
+        "dictItemName":newSourceItem
+    })
+    $.ajax({
+        url:"/Lab3Demo/createSource",
+        type:"POST",
+        contentType:"application/json",
+        data:s,
+        success:function (result){
+            if (result.code == 200) {
+                alert("新建成功!");
+                window.location.reload();
+            } else {
+                alert("创建失败!")
+                window.location.reload();
+            }
+        }
+    })
+}
 
 /***************************************************切换管理页面******************************************************/
 $("#changebutton2").click(function () {

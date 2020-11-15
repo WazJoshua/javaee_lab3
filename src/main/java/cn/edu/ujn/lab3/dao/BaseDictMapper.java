@@ -23,7 +23,9 @@ public interface BaseDictMapper {
 
     int selectIdMaximum();
 
-    int selectSortMaximum();
+    int selectSortMaximum(String s);
+
+    int selectTypeCodeMaximum();
 
     List<BaseDict> selectDictBySel(BaseDict baseDict);
 

@@ -19,7 +19,7 @@
     <link href="http://localhost:8765/Lab3Demo/static/css/boot-crm.css" rel="stylesheet" type="text/css"/>
     <link href="../static/css/input-style.css">
 </head>
-<body >
+<body>
 <div id="wrapper">
     <!-- 导航栏部分 -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -256,9 +256,6 @@
         </div>
         <a href="#" class="btn btn-primary" data-toggle="modal"
            data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
-
-        <a href="#" class="btn btn-primary" data-toggle="modal"
-           data-target="#sourcedialog" onclick="clearSource()" onmousemove="light()" >添加职业</a>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -324,11 +321,10 @@
                 </form>
             </div>
         </div>
-        <a href="#" class="btn btn-primary" data-toggle="modal"
-           data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
-
-        <a href="#" class="btn btn-primary" data-toggle="modal"
-           data-target="#sourcedialog" onclick="clearSource()" onmousemove="light()" >添加职业</a>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#itemdialog"
+           onclick="clearSource()">添加条目</a>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#sourcedialog"
+           onclick="clearSource()">新建字段</a>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -340,6 +336,7 @@
                             <th>字段编号</th>
                             <th>字段名称</th>
                             <th>条目名称</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody id="tableBody2">
@@ -350,7 +347,7 @@
                     <div class="col-md-6" id="page_info_area2"></div>
                     <!-- 分页条信息 -->
                     <div class="col-md-6" id="page_nav_area2"></div>
-<!--                     /.panel-body-->
+                    <!--                     /.panel-body-->
                 </div>
                 <!-- /.panel -->
             </div>
@@ -550,7 +547,46 @@
 </div>
 <!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
 
-<!------------------------------------------------------------ 修改客户模态框 ------------------------------------------------------>
+<!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
+<div class="modal fade" id="itemdialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel3">添加条目</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="newsource">
+                    <div class="form-group">
+                        <label for="new_dictTypeName" style="float:left;padding:7px 15px 0 27px;">字段名称</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="new_dictTypeName" name="cust_source">
+                                <option value="">--请选择--</option>
+                                <!--js填充选项-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新的条目</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="newItemInput" placeholder="新的职业"
+                                   name="newsource"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createItem()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
+
+<!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
 <div class="modal fade" id="sourcedialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -559,16 +595,23 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel3">修改客户信息</h4>
+                <h4 class="modal-title" id="myModalLabel4">新建字段</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" id="newsource">
+                <form class="form-horizontal" id="newItem">
                     <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新建字段</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="newsourceinput" placeholder="新的职业"
+                            <input type="text" class="form-control" id="newSourceInput" placeholder="新建字段"
                                    name="newsource"/>
                         </div>
-                        <label for="edit_phone" class="col-sm-2 control-label">新的职业</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">字段条目</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="newSourceItemInput" placeholder="字段条目"
+                                   name="newsource"/>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -578,7 +621,7 @@
         </div>
     </div>
 </div>
-<!------------------------------------------------------------ 修改客户模态框 ------------------------------------------------------>
+<!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
 
 <!------------------------------------------------------------- 引入js文件 ------------------------------------------------------------>
 <!-- jQuery -->
@@ -729,7 +772,7 @@
 
     }
 
-    function light(){
+    function light() {
         $("head").remove("#darkstyle");
     }
 

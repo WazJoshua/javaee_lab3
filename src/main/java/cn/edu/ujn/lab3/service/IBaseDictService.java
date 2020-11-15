@@ -16,10 +16,12 @@ public interface IBaseDictService {
 
     int selectIdMaximum();
 
-    int selectSortMaximum();
+    int selectSortMaximum(String s);
 
     List<BaseDict> findDictBySel(BaseDict baseDict);
 
     List<BaseDict> findAllTypeName();
+
+    int selectTypeCodeMaximum();
 
 }
