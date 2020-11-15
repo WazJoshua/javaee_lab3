@@ -67,10 +67,7 @@ public class CustomerController {
         int pageNumber = customerWithPageNumber.getPn();
         PageHelper.startPage(pageNumber, 5);
         List<Customer> customers = customerService.selectCusBySel(customer);
-
         PageInfo pageInfo = new PageInfo(customers, 5);
-
-        //List<Customer> customersOV = customerService.selectCusBySelOV(customer);
         List<Customer> nCustomers = new ArrayList<Customer>();
         for (Customer c : customers) {
             BaseDict cusSource = baseDictMapper.selectByPrimaryKey(c.getCustSource());

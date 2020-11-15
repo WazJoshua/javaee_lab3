@@ -95,19 +95,19 @@ public class BaseDictController {
     @ResponseBody
     public ResultMSG getDictBySel(@RequestBody String dictAndPage) {
         System.out.println("dictAndPage = " + dictAndPage);
-        DictWithPageNumber dictWithPageNumber = gson.fromJson(dictAndPage,new TypeToken<DictWithPageNumber>(){}.getType());
+        DictWithPageNumber dictWithPageNumber = gson.fromJson(dictAndPage,new TypeToken<DictWithPageNumber>(){
+        }.getType());
         System.out.println(dictWithPageNumber);
         BaseDict baseDict = dictWithPageNumber.getBaseDict();
         System.out.println(baseDict);
         int pageNumber = dictWithPageNumber.getPage();
         System.out.println(pageNumber);
-//        PageHelper.startPage(pageNumber,5);
-//        List<BaseDict> baseDicts = baseDictService.findDictBySel(baseDict);
-//        System.out.println(baseDicts);
-//        PageInfo pageInfo = new PageInfo(baseDicts,5);
-//        pageInfo.setList(baseDicts);
+        PageHelper.startPage(pageNumber,5);
+        List<BaseDict> baseDicts = baseDictService.findDictBySel(baseDict);
+        PageInfo pageInfo = new PageInfo(baseDicts,5);
+        pageInfo.setList(baseDicts);
         ResultMSG success = ResultMSG.success();
-//        success.put("pageInfo",pageInfo);
+        success.put("pageInfo",pageInfo);
         return success;
     }
 

@@ -9,7 +9,7 @@ $(function () {
     getops("dictTypeName");
 });
 
-$("#dictTypeName").change(function (){
+$("#dictTypeName").change(function () {
     getops("dictItemName");
 })
 
@@ -131,26 +131,25 @@ function reset_form(ele) {
     $(ele).find(".help-block").text("");
 }*/
 /***********************************************显示数据字典***********************************************************/
-
 function build_cust_table2(result) {         //渲染用户信息进入表格
     //清空table表格
-    $("#tableBody").empty();
+    $("#tableBody2").empty();
     var basedict = result.pageInfo.list;
     $.each(basedict, function (index, basedict) {
 
         var strTbl = `
                     <tr>
-                        <th scope="row" id="customerid"> ${basedict.custId}</th>
-                        <th id="customername">${basedict.dictTypeName}</th>
-                        <th id="customersource">${basedict.dictItemName} </th>
+                        <th scope="row" id="dictId"> ${basedict.dictId}</th>
+                        <th id="dictTypeName">${basedict.dictTypeName}</th>
+                        <th id="dictItemName">${basedict.dictItemName} </th>
                         <th>
-                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" onclick= "editCustomer(` + customer.custId + `)"><span><svg width="1em" height="1em"
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="" onclick= ""><span><svg width="1em" height="1em"
                                                                   viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
                                                                   xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                         </svg></span> 编辑</button>
-                            <button class="btn btn-danger btn-xs" onclick="deleteCustomer(` + customer.custId + `)"><span><svg width="1em" height="1em"
+                            <button class="btn btn-danger btn-xs" onclick=""><span><svg width="1em" height="1em"
                                                                  viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor"
                                                                  xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
@@ -160,10 +159,80 @@ function build_cust_table2(result) {         //渲染用户信息进入表格
                                         </svg></span> 删除</button>
                         </th>
                     </tr>`;
-        $("#tableBody").append(strTbl);
+        $("#tableBody2").append(strTbl);
 
     });
 }
+
+function build_page_info2(result) {
+    $("#page_info_area2").empty();
+    $("#page_info_area2").append("当前" + result.pageInfo.pageNum + "页,总" +
+        result.pageInfo.pages + "页,总" +
+        result.pageInfo.total + "条记录");
+    totalRecord = result.pageInfo.total;
+    currentPage = result.pageInfo.pageNum;
+}
+
+//解析显示分页条，点击分页要能去下一页....
+function build_page_nav2(result) {
+    //page_nav_area
+    $("#page_nav_area2").empty();
+    var ul = $("<ul></ul>").addClass("pagination");
+
+    //构建元素
+    var firstPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("首页").attr("href", "#"));
+    var prePageLi = $("<li  class='page-item'></li>").append($("<a class='page-link'></a>").append("&laquo;"));
+    if (result.pageInfo.hasPreviousPage == false) {
+        firstPageLi.addClass("disabled");
+        prePageLi.addClass("disabled");
+    } else {
+        //为元素添加点击翻页的事件
+        firstPageLi.click(function () {
+            to_page2(1);
+        });
+        prePageLi.click(function () {
+            to_page2(result.pageInfo.pageNum - 1);
+        });
+    }
+
+
+    var nextPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("&raquo;"));
+    var lastPageLi = $("<li class='page-item>'</li>").append($("<a class='page-link'></a>").append("末页").attr("href", "#"));
+    if (result.pageInfo.hasNextPage == false) {
+        nextPageLi.addClass("disabled");
+        lastPageLi.addClass("disabled");
+    } else {
+        nextPageLi.click(function () {
+            to_page2(result.pageInfo.pageNum + 1);
+        });
+        lastPageLi.click(function () {
+            to_page2(result.pageInfo.pages);
+        });
+    }
+
+    0
+    //添加首页和前一页 的提示
+    ul.append(firstPageLi).append(prePageLi);
+    //1,2，3遍历给ul中添加页码提示
+    $.each(result.pageInfo.navigatepageNums, function (index, item) {
+
+        var numLi = $("<li class='page-item>'</li>").append($("<a class='page-link'></a>").append(item));
+        if (result.pageInfo.pageNum == item) {
+            numLi.addClass("active");
+        }
+        numLi.click(function () {
+            to_page2(item);
+        });
+        ul.append(numLi);
+    });
+    //添加下一页和末页 的提示
+    ul.append(nextPageLi).append(lastPageLi);
+
+    //把ul加入到nav
+    var navEle = $("<nav></nav>").append(ul);
+    navEle.appendTo("#page_nav_area2");
+}
+
 
 /**********************************************************************************************************************/
 
@@ -171,12 +240,11 @@ function build_cust_table2(result) {         //渲染用户信息进入表格
 function getops(loc) {
     if (loc == "dictItemName") {
         var currOption = $("#dictTypeName").val();
-        console.log(currOption);
         $.ajax({
             url: "/Lab3Demo/getdictItemName",
             type: "POST",
             data: currOption,
-            contentType:"application/json",
+            contentType: "application/json",
             success: function (success) {
                 intoCusSource(loc, success.sources);
             }
@@ -186,7 +254,6 @@ function getops(loc) {
         url: "/Lab3Demo/get" + loc,
         type: "POST",
         success: function (success) {
-            console.log(success.sources);
             intoCusSource(loc, success.sources);
         }
     })
@@ -195,8 +262,8 @@ function getops(loc) {
 //渲染进页面
 function intoCusSource(location, sources) {
 
-    if (location == "dictItemName"){
-        $("#dictItemName").html('');
+    if (location == "dictItemName") {
+        $("#dictItemName").html('<option value="">--请选择--</option>');
     }
 
     if (location == "dictTypeName") {
@@ -211,7 +278,7 @@ function intoCusSource(location, sources) {
 
     for (let i = 0; i < sources.length; i++) {
         /*opStr = ;*/
-        $("#" + location).append("<option value='" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
+        $("#" + location).append("<option value='" + sources[i].dictItemName + "'>" + sources[i].dictItemName + "</option>");
         $("#edit_" + location).append("<option value='edit_" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
         $("#new_" + location).append("<option value='new_" + sources[i].dictId + "'>" + sources[i].dictItemName + "</option>");
     }
@@ -366,11 +433,11 @@ $("#changebutton").click(function () {
 
 function to_page2(page) {
     let newdictTypeName = $("#dictTypeName").val();
-    let newdictItemName = $("#dictItemName").val();
+    let newdictItemName = $("#dictItemName").val().replace(/[\s*]/ig,"");
     var s = JSON.stringify({
         "page": page,
-        "basedict": {
-            "dictTypeName": newdictTypeName,
+        "baseDict": {
+            "dictTypeCode": newdictTypeName,
             "dictItemName": newdictItemName
         }
     });
@@ -381,13 +448,12 @@ function to_page2(page) {
         data: s,
         type: "POST",
         success: function (result) {
-            // console.log(result.pageInfo);
             //1、解析并显示用户数据
-            // build_cust_table2(result);
-            // //2、解析并显示分页信息
-            // build_page_info(result);
-            // //3、解析显示分页条数据
-            // build_page_nav(result);
+            build_cust_table2(result);
+            //2、解析并显示分页信息
+            build_page_info2(result);
+            //3、解析显示分页条数据
+            build_page_nav2(result);
             console.log(result.list);
         }
     });
