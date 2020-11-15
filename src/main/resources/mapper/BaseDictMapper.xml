@@ -35,6 +35,20 @@
     <select id="selectSortMaximum" resultType="java.lang.Integer">
         SELECT MAX(CAST(dict_sort AS SIGNED)) FROM base_dict where dict_type_code = "001";
     </select>
+    <select id="selectDictBySel" resultType="cn.edu.ujn.lab3.model.BaseDict">
+        select * from base_dict
+        <where>
+            <if test="customer.custName!=null and customer.custName!=''">
+                dict_type_name=#{dictTypeName}
+            </if>
+            <if test="customer.custSource!=null and customer.custSource!=''">
+                AND dict_item_name=#{dictItemName}
+            </if>
+        </where>
+    </select>
+    <select id="selectAllTypeName"  resultMap="BaseResultMap">
+        select dict_type_name,dict_type_code,max(dict_sort) as dict_sort from base_dict group by dict_type_code
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from base_dict
     where dict_id = #{dictId,jdbcType=VARCHAR}

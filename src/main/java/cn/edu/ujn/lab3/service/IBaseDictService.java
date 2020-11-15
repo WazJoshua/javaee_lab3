@@ -18,4 +18,8 @@ public interface IBaseDictService {
 
     int selectSortMaximum();
 
+    List<BaseDict> findDictBySel(BaseDict baseDict);
+
+    List<BaseDict> findAllTypeName();
+
 }

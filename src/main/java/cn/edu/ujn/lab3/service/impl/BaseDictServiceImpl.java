@@ -49,5 +49,15 @@ public class BaseDictServiceImpl implements IBaseDictService {
         return baseDictMapper.selectSortMaximum();
     }
 
+    @Override
+    public List<BaseDict> findDictBySel(BaseDict baseDict) {
+        return baseDictMapper.selectDictBySel(baseDict);
+    }
+
+    @Override
+    public List<BaseDict> findAllTypeName() {
+        return baseDictMapper.selectAllTypeName();
+    }
+
 
 }

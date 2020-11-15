@@ -19,7 +19,7 @@
     <link href="http://localhost:8765/Lab3Demo/static/css/boot-crm.css" rel="stylesheet" type="text/css"/>
     <link href="../static/css/input-style.css">
 </head>
-<body>
+<body >
 <div id="wrapper">
     <!-- 导航栏部分 -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -174,7 +174,7 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置</a></li>
                     <li class="divider"></li>
                     <li>
-                        <a href="${pageContext.request.contextPath }/logout.action">
+                        <a href="/logout.action">
                             <i class="fa fa-sign-out fa-fw"></i>退出登录
                         </a>
                     </li>
@@ -196,14 +196,14 @@
 						</span>
                         </div>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath }/customer/list.action" class="active">
+                    <li id="changebutton">
+                        <a href="#" class="active">
                             <i class="fa fa-edit fa-fw"></i> 客户管理
                         </a>
                     </li>
-                    <li>
+                    <li id="changebutton2">
                         <a href="#">
-                            <i class="fa fa-dashboard fa-fw"></i> 客户拜访
+                            <i class="fa fa-dashboard fa-fw"></i> 数据字典管理
                         </a>
                     </li>
                 </ul>
@@ -211,7 +211,8 @@
         </div>
         <!-- 左侧显示列表部分 end-->
     </nav>
-    <!-- 客户列表查询部分  start-->
+
+    <!---------------------------------------------------- 客户列表查询部分  start--------------------------------------------->
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -257,7 +258,7 @@
            data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
 
         <a href="#" class="btn btn-primary" data-toggle="modal"
-           data-target="#sourcedialog" onclick="clearSource()">添加职业</a>
+           data-target="#sourcedialog" onclick="clearSource()" onmousemove="light()" >添加职业</a>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -291,9 +292,75 @@
             <!-- /.col-lg-12 -->
         </div>
     </div>
-    <!-- 客户列表查询部分  end-->
+    <!------------------------------------------------- 客户列表查询部分  end------------------------------------------>
+
+    <!---------------------------------------------------- 数据字典列表查询部分  start--------------------------------------------->
+    <div id="page-wrapper2" style="display: none">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">客户管理</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="dictTypeName">数据类型</label>
+                        <select class="form-control" id="dictTypeName" name="dictTypeName">
+                            <option value="">--请选择--</option>
+                            <!--js填充选项-->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dictItemName">条目名称</label>
+                        <select class="form-control" id="dictItemName" name="dictItemName">
+                            <option value="">--请选择--</option>
+                            <!--js填充选项-->
+                        </select>
+                    </div>
+                    <buttotn type="button" class="btn btn-primary" id="selectDict">查询</buttotn>
+                </form>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary" data-toggle="modal"
+           data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
+
+        <a href="#" class="btn btn-primary" data-toggle="modal"
+           data-target="#sourcedialog" onclick="clearSource()" onmousemove="light()" >添加职业</a>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">客户信息列表</div>
+                    <!-- /.panel-heading -->
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>字段名称</th>
+                            <th>条目名称</th>
+                        </tr>
+                        </thead>
+<!--                        <tbody id="tableBody">-->
+<!--                        &lt;!&ndash;显示用户信息&ndash;&gt;-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                    &lt;!&ndash;分页文字信息  &ndash;&gt;-->
+<!--                    <div class="col-md-6" id="page_info_area"></div>-->
+<!--                    &lt;!&ndash; 分页条信息 &ndash;&gt;-->
+<!--                    <div class="col-md-6" id="page_nav_area"></div>-->
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+    <!------------------------------------------------- 数据字典列表查询部分  end------------------------------------------>
 </div>
-<!-- 创建客户模态框 -->
+
+
+<!--------------------------------------------------- 创建客户模态框 ----------------------------------------------------------->
 <div class="modal fade" id="newCustomerDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -386,8 +453,9 @@
         </div>
     </div>
 </div>
+<!--------------------------------------------------- 创建客户模态框 ----------------------------------------------------------->
 
-<!-- 修改客户模态框 -->
+<!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -479,8 +547,9 @@
         </div>
     </div>
 </div>
+<!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
 
-<!-- 修改客户模态框 -->
+<!------------------------------------------------------------ 修改客户模态框 ------------------------------------------------------>
 <div class="modal fade" id="sourcedialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -495,7 +564,8 @@
                 <form class="form-horizontal" id="newsource">
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="newsourceinput" placeholder="新的职业" name="newsource"/>
+                            <input type="text" class="form-control" id="newsourceinput" placeholder="新的职业"
+                                   name="newsource"/>
                         </div>
                         <label for="edit_phone" class="col-sm-2 control-label">新的职业</label>
                     </div>
@@ -507,7 +577,9 @@
         </div>
     </div>
 </div>
-<!-- 引入js文件 -->
+<!------------------------------------------------------------ 修改客户模态框 ------------------------------------------------------>
+
+<!------------------------------------------------------------- 引入js文件 ------------------------------------------------------------>
 <!-- jQuery -->
 <script src="http://localhost:8765/Lab3Demo/static/js/jquery-1.11.3.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -520,7 +592,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="http://localhost:8765/Lab3Demo/static/js/sb-admin-2.js"></script>
 <script src="http://localhost:8765/Lab3Demo/static/js/customer-j.js"></script>
-<!-- 编写js代码 -->
+<!------------------------------------------------------------ 引入js文件 ------------------------------------------------------------->
+
+
+<!------------------------------------------------------------ 编写js代码 ------------------------------------------------------------>
 <script type="text/javascript">
     //清空新建客户窗口中的数据
     function clearCustomer() {
@@ -593,9 +668,7 @@
     }
 
     $(function () {
-
         $('#side-menu').metisMenu();
-
     });
 
     //Loads the correct sidebar on window load,
@@ -628,6 +701,36 @@
             element.addClass('active');
         }
     });
+
+    function dark() {
+        var darkstyle = "<style id='darkstyle'>" +
+            ".table-striped>tbody>tr:nth-of-type(odd){background-color:rgb(30,30,30);color:rgb(255,255,255)}" +
+            "" +
+            "</style>"
+        $("head").append(darkstyle);
+
+        // $(".table-striped>tbody>tr:nth-of-type(even)").css("background-color","rgb(50,50,50)");
+        // $(".table-striped>tbody>tr:nth-of-type(odd)").css("color","rgb(255,255,255)");
+        // $(".table-striped>tbody>tr:nth-of-type(even)").css("color","rgb(255,255,255)");
+        // $("body").css("background-color","rgb(0,0,0)");
+        // $("#page-wrapper").css("background-color","rgb(0,0,0)","color","rgb(255,255,255)");
+        // $(".navbar-default").css("background-color","rgb(0,0,0)","color","rgb(255,255,255)");
+        // $(".table thead").css("background-color","rgb(0,0,0)","color","rgb(255,255,255)");
+        // $(".table thead").css("color","rgb(255,255,255)");
+        // $(".panel-heading").css("background-color","rgb(0,0,0)");
+        // $(".panel-heading").css("color","rgb(255,255,255)");
+        // $(".page-header").css("color","rgb(255,255,255)");
+        // $(".navbar-brand").css("color","rgb(255,255,255)");
+        // $(".panel").css("background-color","rgb(0,0,0)");
+        // $(".panel").css("color","rgb(255,255,255)");
+        // $(".pagination").css("background-color","rgb(0,0,0)");
+        // $(".pagination").css("color","rgb(255,255,255)");
+
+    }
+
+    function light(){
+        $("head").remove("#darkstyle");
+    }
 
 </script>
 </body>
