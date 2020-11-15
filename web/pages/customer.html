@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>客户管理</title>
     <!-- 引入css样式文件 -->
     <!-- Bootstrap Core CSS -->
@@ -18,6 +19,7 @@
     <link href="http://localhost:8765/Lab3Demo/static/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="http://localhost:8765/Lab3Demo/static/css/boot-crm.css" rel="stylesheet" type="text/css"/>
     <link href="../static/css/input-style.css">
+
 </head>
 <body>
 <div id="wrapper">
@@ -26,6 +28,10 @@
          style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-brand" href="customer/list.action">客户管理系统</a>
+        </div>
+        <div id="lightOrDark" style="width: 50px;height: 50px;float: right;border-radius: 50%; border: #337ab7 solid 1px;">
+<!--            <img src="../static/images/moon.png">-->
+<!--            <img src="../static/images/sun.png">-->
         </div>
         <!-- 导航栏右侧图标部分 -->
         <ul class="nav navbar-top-links navbar-right">
@@ -256,6 +262,9 @@
         </div>
         <a href="#" class="btn btn-primary" data-toggle="modal"
            data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
+
+        <a href="#" class="btn btn-primary" onclick="dark()">Dark</a>
+        <a href="#" class="btn btn-primary" onclick="light()">Light</a>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -641,6 +650,12 @@
 
 <!------------------------------------------------------------ 编写js代码 ------------------------------------------------------------>
 <script type="text/javascript">
+    $(document).ready(function () {
+        if (getCookie("isDark") == 1) {
+            dark();
+        }
+    })
+
     //清空新建客户窗口中的数据
     function clearCustomer() {
         $("#new_customerName").val("");
@@ -747,33 +762,38 @@
     });
 
     function dark() {
-        var darkstyle = "<style id='darkstyle'>" +
-            ".table-striped>tbody>tr:nth-of-type(odd){background-color:rgb(30,30,30);color:rgb(255,255,255)}" +
-            "" +
-            "</style>"
-        $("head").append(darkstyle);
-
-        // $(".table-striped>tbody>tr:nth-of-type(even)").css("background-color","rgb(50,50,50)");
-        // $(".table-striped>tbody>tr:nth-of-type(odd)").css("color","rgb(255,255,255)");
-        // $(".table-striped>tbody>tr:nth-of-type(even)").css("color","rgb(255,255,255)");
-        // $("body").css("background-color","rgb(0,0,0)");
-        // $("#page-wrapper").css("background-color","rgb(0,0,0)","color","rgb(255,255,255)");
-        // $(".navbar-default").css("background-color","rgb(0,0,0)","color","rgb(255,255,255)");
-        // $(".table thead").css("background-color","rgb(0,0,0)","color","rgb(255,255,255)");
-        // $(".table thead").css("color","rgb(255,255,255)");
-        // $(".panel-heading").css("background-color","rgb(0,0,0)");
-        // $(".panel-heading").css("color","rgb(255,255,255)");
-        // $(".page-header").css("color","rgb(255,255,255)");
-        // $(".navbar-brand").css("color","rgb(255,255,255)");
-        // $(".panel").css("background-color","rgb(0,0,0)");
-        // $(".panel").css("color","rgb(255,255,255)");
-        // $(".pagination").css("background-color","rgb(0,0,0)");
-        // $(".pagination").css("color","rgb(255,255,255)");
+        var x = $("#darkstyle");
+        console.log(x);
+        if (x.length==0){
+            var darkstyle = "<style id='darkstyle'>" +
+                ".table-striped>tbody>tr:nth-of-type(odd){background-color:rgb(30,30,30);color:rgb(255,255,255)}" +
+                ".table-striped>tbody>tr:nth-of-type(even){background-color:rgb(50,50,50);color:rgb(255,255,255)}" +
+                "body{background-color:rgb(0,0,0)}" +
+                "#page-wrapper{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                "#page-wrapper2{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".navbar-default{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".table thead{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".panel-heading{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".page-header{color:rgb(255,255,255)}" +
+                ".navbar-brand{color:rgb(255,255,255)}" +
+                ".panel{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".pagination{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".sidebar ul li a.active{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".form-control{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".panel-default>.panel-heading{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".pagination>li>a, .pagination>li>span{background-color:rgb(0,0,0);}" +
+                ".navbar-default .navbar-brand{color: #fff}" +
+                ".pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{background-color:rgb(0,0,0);}" +
+                "</style>"
+            $("head").append(darkstyle);
+            document.cookie = "isDark = 1";
+        }
 
     }
 
     function light() {
-        $("head").remove("#darkstyle");
+        $("#darkstyle").remove();
+        document.cookie = "isDark = 0";
     }
 
 </script>
