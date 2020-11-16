@@ -7,12 +7,11 @@ import cn.edu.ujn.lab3.service.IBaseDictService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -127,5 +126,22 @@ public class BaseDictController {
         return success;
     }
 
+    @RequestMapping(value = "/deleteDict",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultMSG deleteDict(@RequestBody String dictId){
+        BaseDict baseDict = gson.fromJson(dictId,new TypeToken<BaseDict>(){}.getType());
+        baseDictService.deleteDictById(baseDict.getDictId());
+        ResultMSG success = ResultMSG.success();
+        return success;
+    }
+
+    @PostMapping("/updateDict")
+    @ResponseBody
+    public ResultMSG updateDict(@RequestBody String dictId){
+        BaseDict baseDict = gson.fromJson(dictId,new TypeToken<BaseDict>(){}.getType());
+        baseDictService.updateDictBySel(baseDict);
+        ResultMSG success = ResultMSG.success();
+        return success;
+    }
 
 }

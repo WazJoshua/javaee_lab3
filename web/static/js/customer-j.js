@@ -32,20 +32,23 @@ function build_cust_table(result) {         //渲染用户信息进入表格
                         <th id="customerphone">${customer.custPhone}</th>
                         <th id="customermobile">${customer.custMobile}</th>
                         <th>
-                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" onclick= "editCustomer(` + customer.custId + `)"><span><svg width="1em" height="1em"
-                                                                  viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
-                                                                  xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                        </svg></span> 编辑</button>
-                            <button class="btn btn-danger btn-xs" onclick="deleteCustomer(` + customer.custId + `)"><span><svg width="1em" height="1em"
-                                                                 viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path fill-rule="evenodd"
-                                                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                        </svg></span> 删除</button>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" onclick= "editCustomer(` + customer.custId + `)">
+                                <span>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                    </svg>
+                                </span> 
+                                编辑
+                            </button>
+                            <button class="btn btn-danger btn-xs" onclick="deleteCustomer(` + customer.custId + `)">
+                                <span>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </span> 
+                                删除
+                            </button>
                         </th>
                     </tr>`;
         $("#tableBody").append(strTbl);
@@ -100,7 +103,7 @@ function build_page_nav(result) {
         });
     }
 
-    0
+
     //添加首页和前一页 的提示
     ul.append(firstPageLi).append(prePageLi);
     //1,2，3遍历给ul中添加页码提示
@@ -136,27 +139,32 @@ function build_cust_table2(result) {         //渲染用户信息进入表格
     $("#tableBody2").empty();
     var basedict = result.pageInfo.list;
     $.each(basedict, function (index, basedict) {
-
+        var isEnable = (`${basedict.dictEnable}` == 1 ? "是" : "否");
         var strTbl = `
                     <tr>
                         <th scope="row" id="dictId"> ${basedict.dictId}</th>
                         <th id="dictTypeName">${basedict.dictTypeName}</th>
                         <th id="dictItemName">${basedict.dictItemName} </th>
+                        <th id="dictEnable">` + isEnable + `</th>
                         <th>
-                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="" onclick= ""><span><svg width="1em" height="1em"
-                                                                  viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
-                                                                  xmlns="http://www.w3.org/2000/svg">
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editItemDialog" onclick="initEdit( '${basedict.dictId}', '${basedict.dictEnable}' , '${basedict.dictItemName}')">
+                                <span>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                        </svg></span> 编辑</button>
-                            <button class="btn btn-danger btn-xs" onclick=""><span><svg width="1em" height="1em"
-                                                                 viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path fill-rule="evenodd"
-                                                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                        </svg></span> 删除</button>
+                                    </svg>
+                                </span> 
+                                编辑
+                            </button>
+                            <button class="btn btn-danger btn-xs" onclick="deleteDict(` + basedict.dictId + `)">
+                                <span>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </span> 
+                                删除
+                            </button>
                         </th>
                     </tr>`;
         $("#tableBody2").append(strTbl);
@@ -402,7 +410,7 @@ function createItem() {
     var souInfo = JSON.stringify({
         "dictTypeCode": choosedTypeCode,
         "dictTypeName": choosedTypeName,
-        "dictItemName":newItem
+        "dictItemName": newItem
     });
     console.log(souInfo);
     $.ajax({
@@ -421,20 +429,21 @@ function createItem() {
         }
     })
 }
+
 /****************************************************新建字段*********************************************************/
-function createSource(){
+function createSource() {
     var newSource = $("#newSourceInput").val();
     var newSourceItem = $("#newSourceItemInput").val();
     var s = JSON.stringify({
-        "dictTypeName":newSource,
-        "dictItemName":newSourceItem
+        "dictTypeName": newSource,
+        "dictItemName": newSourceItem
     })
     $.ajax({
-        url:"/Lab3Demo/createSource",
-        type:"POST",
-        contentType:"application/json",
-        data:s,
-        success:function (result){
+        url: "/Lab3Demo/createSource",
+        type: "POST",
+        contentType: "application/json",
+        data: s,
+        success: function (result) {
             if (result.code == 200) {
                 alert("新建成功!");
                 window.location.reload();
@@ -460,7 +469,7 @@ $("#changebutton").click(function () {
 
 function to_page2(page) {
     let newdictTypeName = $("#dictTypeName").val();
-    let newdictItemName = $("#dictItemName").val().replace(/[\s*]/ig,"");
+    let newdictItemName = $("#dictItemName").val().replace(/[\s*]/ig, "");
     var s = JSON.stringify({
         "page": page,
         "baseDict": {
@@ -492,16 +501,77 @@ $("#selectDict").click(
         to_page2(1);
     }
 )
+
 /*************************************************获取cookie值**********************************************************/
-function getCookie(name){
+function getCookie(name) {
     var strcookie = document.cookie;//获取cookie字符串
     var arrcookie = strcookie.split("; ");//分割
     //遍历匹配
-    for ( var i = 0; i < arrcookie.length; i++) {
+    for (var i = 0; i < arrcookie.length; i++) {
         var arr = arrcookie[i].split("=");
-        if (arr[0] == name){
+        if (arr[0] == name) {
             return arr[1];
         }
     }
     return "";
+}
+
+/****************************************************删除数据字典********************************************************/
+function deleteDict(dictid) {
+    console.log(dictid);
+    if (confirm('确实要删除该数据项吗?')) {
+
+        var s = JSON.stringify({
+            "dictId":dictid,
+        })
+        $.ajax({
+            url:"/Lab3Demo/deleteDict",
+            contentType:"application/json",
+            data:s,
+            type:"POST",
+            success:function (result){
+                if (result.code == 200) {
+                    alert("删除成功!");
+                    window.location.reload();
+                } else {
+                    alert("删除失败!")
+                    window.location.reload();
+                }
+            }
+        })
+    }
+}
+
+/****************************************************编辑数据字典********************************************************/
+function initEdit(dictId,dictEnable,dictItemName){
+    $("#editItemId").val(dictId);
+    $("#edit_dictEnable").val(dictEnable);
+    $("#editItemInput").val(dictItemName);
+}
+function editItem(){
+    console.log(dictId);
+    var isEnable = $("#edit_dictEnable").val();
+    var newItemName = $("#editItemInput").val();
+    var editItemId = $("#editItemId").val();
+    var s = JSON.stringify({
+        "dictEnable":isEnable,
+        "dictItemName":newItemName,
+        "dictId":editItemId
+    })
+    console.log(s);
+    $.ajax({
+        url:"/Lab3Demo/updateDict",
+        contentType:"application/json",
+        data:s,
+        type:"POST",
+        success:function (result){
+            if (result.code == 200) {
+                alert("修改成功!");
+                window.location.reload();
+            } else {
+                alert("修改失败!")
+                window.location.reload();
+            }
+        }
+    })
 }

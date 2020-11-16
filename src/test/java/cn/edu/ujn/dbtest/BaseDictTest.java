@@ -1,5 +1,6 @@
 package cn.edu.ujn.dbtest;
 
+import cn.edu.ujn.lab3.controller.BaseDictController;
 import cn.edu.ujn.lab3.model.BaseDict;
 import cn.edu.ujn.lab3.model.Customer;
 import cn.edu.ujn.lab3.model.CustomerWithPageNumber;
@@ -51,4 +52,12 @@ public class BaseDictTest {
             System.out.println(b.getDictTypeName());
         }
     }
+
+
+//    BaseDictController baseDictController = new BaseDictController();
+//    @Test
+//    public void test04(){
+////        baseDictController.deleteDict("{dictId:6}");
+//        baseDictService.deleteDictById("37");
+//    }
 }

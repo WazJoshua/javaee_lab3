@@ -64,5 +64,15 @@ public class BaseDictServiceImpl implements IBaseDictService {
         return baseDictMapper.selectTypeCodeMaximum();
     }
 
+    @Override
+    public int deleteDictById(String dictId) {
+        return baseDictMapper.deleteByPrimaryKey(dictId);
+    }
+
+    @Override
+    public int updateDictBySel(BaseDict baseDict) {
+        return baseDictMapper.updateByPrimaryKeySelective(baseDict);
+    }
+
 
 }

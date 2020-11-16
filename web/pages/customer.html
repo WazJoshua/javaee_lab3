@@ -345,6 +345,7 @@
                             <th>字段编号</th>
                             <th>字段名称</th>
                             <th>条目名称</th>
+                            <th>是否可用</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -595,6 +596,54 @@
 </div>
 <!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
 
+<!------------------------------------------------------------ 修改条目模态框 ------------------------------------------------------>
+<div class="modal fade" id="editItemDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel5">修改条目</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editsource">
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新的条目名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="editItemId" placeholder="ID" disabled="true"
+                                   name="newsource"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_dictTypeName" style="float:left;padding:7px 15px 0 27px;">是否可用</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="edit_dictEnable" name="cust_source">
+                                <option value="">--请选择--</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                                <!--js填充选项-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新的条目名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="editItemInput" placeholder="新的条目名称"
+                                   name="newsource"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="editItem()">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------ 修改条目模态框 ------------------------------------------------------>
+
 <!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
 <div class="modal fade" id="sourcedialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
@@ -784,6 +833,8 @@
                 ".pagination>li>a, .pagination>li>span{background-color:rgb(0,0,0);}" +
                 ".navbar-default .navbar-brand{color: #fff}" +
                 ".pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{background-color:rgb(0,0,0);}" +
+                ".modal-content{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".close span{color: white}" +
                 "</style>"
             $("head").append(darkstyle);
             document.cookie = "isDark = 1";

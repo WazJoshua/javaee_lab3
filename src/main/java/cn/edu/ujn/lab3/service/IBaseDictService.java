@@ -24,4 +24,8 @@ public interface IBaseDictService {
 
     int selectTypeCodeMaximum();
 
+    int deleteDictById(String dictId);
+
+    int updateDictBySel(BaseDict baseDict);
+
 }
