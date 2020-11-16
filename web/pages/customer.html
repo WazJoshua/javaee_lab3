@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>客户管理</title>
     <!-- 引入css样式文件 -->
     <!-- Bootstrap Core CSS -->
@@ -18,6 +19,7 @@
     <link href="http://localhost:8765/Lab3Demo/static/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="http://localhost:8765/Lab3Demo/static/css/boot-crm.css" rel="stylesheet" type="text/css"/>
     <link href="../static/css/input-style.css">
+
 </head>
 <body>
 <div id="wrapper">
@@ -26,6 +28,10 @@
          style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-brand" href="customer/list.action">客户管理系统</a>
+        </div>
+        <div id="lightOrDark" style="width: 50px;height: 50px;float: right;border-radius: 50%; border: #337ab7 solid 1px;">
+<!--            <img src="../static/images/moon.png">-->
+<!--            <img src="../static/images/sun.png">-->
         </div>
         <!-- 导航栏右侧图标部分 -->
         <ul class="nav navbar-top-links navbar-right">
@@ -174,7 +180,7 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置</a></li>
                     <li class="divider"></li>
                     <li>
-                        <a href="${pageContext.request.contextPath }/logout.action">
+                        <a href="/logout.action">
                             <i class="fa fa-sign-out fa-fw"></i>退出登录
                         </a>
                     </li>
@@ -196,14 +202,14 @@
 						</span>
                         </div>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath }/customer/list.action" class="active">
+                    <li id="changebutton">
+                        <a href="#" class="active">
                             <i class="fa fa-edit fa-fw"></i> 客户管理
                         </a>
                     </li>
-                    <li>
+                    <li id="changebutton2">
                         <a href="#">
-                            <i class="fa fa-dashboard fa-fw"></i> 客户拜访
+                            <i class="fa fa-dashboard fa-fw"></i> 数据字典管理
                         </a>
                     </li>
                 </ul>
@@ -211,7 +217,8 @@
         </div>
         <!-- 左侧显示列表部分 end-->
     </nav>
-    <!-- 客户列表查询部分  start-->
+
+    <!---------------------------------------------------- 客户列表查询部分  start--------------------------------------------->
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -256,8 +263,8 @@
         <a href="#" class="btn btn-primary" data-toggle="modal"
            data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
 
-        <a href="#" class="btn btn-primary" data-toggle="modal"
-           data-target="#sourcedialog" onclick="clearSource()">添加职业</a>
+        <a href="#" class="btn btn-primary" onclick="dark()">Dark</a>
+        <a href="#" class="btn btn-primary" onclick="light()">Light</a>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -291,9 +298,76 @@
             <!-- /.col-lg-12 -->
         </div>
     </div>
-    <!-- 客户列表查询部分  end-->
+    <!------------------------------------------------- 客户列表查询部分  end------------------------------------------>
+
+    <!---------------------------------------------------- 数据字典列表查询部分  start--------------------------------------------->
+    <div id="page-wrapper2" style="display: none">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">客户管理</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="dictTypeName">数据类型</label>
+                        <select class="form-control" id="dictTypeName" name="dictTypeName">
+                            <option value="">--请选择--</option>
+                            <!--js填充选项-->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dictItemName">条目名称</label>
+                        <select class="form-control" id="dictItemName" name="dictItemName">
+                            <option value="">--请选择--</option>
+                            <!--js填充选项-->
+                        </select>
+                    </div>
+                    <buttotn type="button" class="btn btn-primary" id="selectDict">查询</buttotn>
+                </form>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#itemdialog"
+           onclick="clearSource()">添加条目</a>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#sourcedialog"
+           onclick="clearSource()">新建字段</a>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">客户信息列表</div>
+                    <!-- /.panel-heading -->
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>字段编号</th>
+                            <th>字段名称</th>
+                            <th>条目名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody2">
+                        <!--显示用户信息-->
+                        </tbody>
+                    </table>
+                    <!--分页文字信息  -->
+                    <div class="col-md-6" id="page_info_area2"></div>
+                    <!-- 分页条信息 -->
+                    <div class="col-md-6" id="page_nav_area2"></div>
+                    <!--                     /.panel-body-->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+    <!------------------------------------------------- 数据字典列表查询部分  end------------------------------------------>
 </div>
-<!-- 创建客户模态框 -->
+
+
+<!--------------------------------------------------- 创建客户模态框 ----------------------------------------------------------->
 <div class="modal fade" id="newCustomerDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -386,8 +460,9 @@
         </div>
     </div>
 </div>
+<!--------------------------------------------------- 创建客户模态框 ----------------------------------------------------------->
 
-<!-- 修改客户模态框 -->
+<!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -479,8 +554,48 @@
         </div>
     </div>
 </div>
+<!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
 
-<!-- 修改客户模态框 -->
+<!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
+<div class="modal fade" id="itemdialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel3">添加条目</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="newsource">
+                    <div class="form-group">
+                        <label for="new_dictTypeName" style="float:left;padding:7px 15px 0 27px;">字段名称</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="new_dictTypeName" name="cust_source">
+                                <option value="">--请选择--</option>
+                                <!--js填充选项-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新的条目</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="newItemInput" placeholder="新的职业"
+                                   name="newsource"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createItem()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
+
+<!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
 <div class="modal fade" id="sourcedialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -489,15 +604,23 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel3">修改客户信息</h4>
+                <h4 class="modal-title" id="myModalLabel4">新建字段</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" id="newsource">
+                <form class="form-horizontal" id="newItem">
                     <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新建字段</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="newsourceinput" placeholder="新的职业" name="newsource"/>
+                            <input type="text" class="form-control" id="newSourceInput" placeholder="新建字段"
+                                   name="newsource"/>
                         </div>
-                        <label for="edit_phone" class="col-sm-2 control-label">新的职业</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">字段条目</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="newSourceItemInput" placeholder="字段条目"
+                                   name="newsource"/>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -507,7 +630,9 @@
         </div>
     </div>
 </div>
-<!-- 引入js文件 -->
+<!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
+
+<!------------------------------------------------------------- 引入js文件 ------------------------------------------------------------>
 <!-- jQuery -->
 <script src="http://localhost:8765/Lab3Demo/static/js/jquery-1.11.3.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -520,8 +645,17 @@
 <!-- Custom Theme JavaScript -->
 <script src="http://localhost:8765/Lab3Demo/static/js/sb-admin-2.js"></script>
 <script src="http://localhost:8765/Lab3Demo/static/js/customer-j.js"></script>
-<!-- 编写js代码 -->
+<!------------------------------------------------------------ 引入js文件 ------------------------------------------------------------->
+
+
+<!------------------------------------------------------------ 编写js代码 ------------------------------------------------------------>
 <script type="text/javascript">
+    $(document).ready(function () {
+        if (getCookie("isDark") == 1) {
+            dark();
+        }
+    })
+
     //清空新建客户窗口中的数据
     function clearCustomer() {
         $("#new_customerName").val("");
@@ -593,9 +727,7 @@
     }
 
     $(function () {
-
         $('#side-menu').metisMenu();
-
     });
 
     //Loads the correct sidebar on window load,
@@ -628,6 +760,41 @@
             element.addClass('active');
         }
     });
+
+    function dark() {
+        var x = $("#darkstyle");
+        console.log(x);
+        if (x.length==0){
+            var darkstyle = "<style id='darkstyle'>" +
+                ".table-striped>tbody>tr:nth-of-type(odd){background-color:rgb(30,30,30);color:rgb(255,255,255)}" +
+                ".table-striped>tbody>tr:nth-of-type(even){background-color:rgb(50,50,50);color:rgb(255,255,255)}" +
+                "body{background-color:rgb(0,0,0)}" +
+                "#page-wrapper{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                "#page-wrapper2{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".navbar-default{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".table thead{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".panel-heading{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".page-header{color:rgb(255,255,255)}" +
+                ".navbar-brand{color:rgb(255,255,255)}" +
+                ".panel{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".pagination{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".sidebar ul li a.active{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".form-control{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".panel-default>.panel-heading{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".pagination>li>a, .pagination>li>span{background-color:rgb(0,0,0);}" +
+                ".navbar-default .navbar-brand{color: #fff}" +
+                ".pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{background-color:rgb(0,0,0);}" +
+                "</style>"
+            $("head").append(darkstyle);
+            document.cookie = "isDark = 1";
+        }
+
+    }
+
+    function light() {
+        $("#darkstyle").remove();
+        document.cookie = "isDark = 0";
+    }
 
 </script>
 </body>

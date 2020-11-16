@@ -63,16 +63,13 @@ public class CustomerController {
         }.getType());
         System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
         Customer customer = customerWithPageNumber.getCustomer();
+        System.out.println(customer);
         int pageNumber = customerWithPageNumber.getPn();
         PageHelper.startPage(pageNumber, 5);
         List<Customer> customers = customerService.selectCusBySel(customer);
-
         PageInfo pageInfo = new PageInfo(customers, 5);
-
-        //List<Customer> customersOV = customerService.selectCusBySelOV(customer);
         List<Customer> nCustomers = new ArrayList<Customer>();
-        for (Customer c :
-                customers) {
+        for (Customer c : customers) {
             BaseDict cusSource = baseDictMapper.selectByPrimaryKey(c.getCustSource());
             BaseDict cusIndustry = baseDictMapper.selectByPrimaryKey(c.getCustIndustry());
             BaseDict cusLevel = baseDictMapper.selectByPrimaryKey(c.getCustLevel());
