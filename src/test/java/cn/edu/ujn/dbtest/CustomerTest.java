@@ -62,9 +62,9 @@ public class CustomerTest {
 
     @Test
     public void testInsert() {
-        Customer customer = new Customer();
-        customer.setCustName("timetest");
-        customerService.insertCustomer(customer);
+        List<String> s = customerMapper.selectByPinyin("x");
+        System.out.println(s);
+
     }
 
 }

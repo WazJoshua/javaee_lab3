@@ -316,6 +316,7 @@ function to_page(pn) {
         data: s,
         type: "POST",
         success: function (result) {
+            console.log(result);
             // console.log(result.pageInfo);
             //1、解析并显示用户数据
             build_cust_table(result);
@@ -522,14 +523,14 @@ function deleteDict(dictid) {
     if (confirm('确实要删除该数据项吗?')) {
 
         var s = JSON.stringify({
-            "dictId":dictid,
+            "dictId": dictid,
         })
         $.ajax({
-            url:"/Lab3Demo/deleteDict",
-            contentType:"application/json",
-            data:s,
-            type:"POST",
-            success:function (result){
+            url: "/Lab3Demo/deleteDict",
+            contentType: "application/json",
+            data: s,
+            type: "POST",
+            success: function (result) {
                 if (result.code == 200) {
                     alert("删除成功!");
                     window.location.reload();
@@ -543,28 +544,29 @@ function deleteDict(dictid) {
 }
 
 /****************************************************编辑数据字典********************************************************/
-function initEdit(dictId,dictEnable,dictItemName){
+function initEdit(dictId, dictEnable, dictItemName) {
     $("#editItemId").val(dictId);
     $("#edit_dictEnable").val(dictEnable);
     $("#editItemInput").val(dictItemName);
 }
-function editItem(){
+
+function editItem() {
     console.log(dictId);
     var isEnable = $("#edit_dictEnable").val();
     var newItemName = $("#editItemInput").val();
     var editItemId = $("#editItemId").val();
     var s = JSON.stringify({
-        "dictEnable":isEnable,
-        "dictItemName":newItemName,
-        "dictId":editItemId
+        "dictEnable": isEnable,
+        "dictItemName": newItemName,
+        "dictId": editItemId
     })
     console.log(s);
     $.ajax({
-        url:"/Lab3Demo/updateDict",
-        contentType:"application/json",
-        data:s,
-        type:"POST",
-        success:function (result){
+        url: "/Lab3Demo/updateDict",
+        contentType: "application/json",
+        data: s,
+        type: "POST",
+        success: function (result) {
             if (result.code == 200) {
                 alert("修改成功!");
                 window.location.reload();
@@ -575,3 +577,55 @@ function editItem(){
         }
     })
 }
+
+/**************************************************动态查询框************************************************************/
+var customerName = $("#customerName");
+
+var time = 0;
+customerName.blur(function (){
+    $("#ProjectNumberSearch").empty();
+    $("#ProjectNumberSearch").css("display", "none");
+})
+customerName.bind('input', function sasa() {
+    var customerName = $("#customerName").val();
+    var s = JSON.stringify({
+        "pn": 1,
+        "customer": {
+            "custPinyin": customerName,
+        }
+    });
+    console.log(s);
+    if (time == 0){
+        time = 10;
+        var timeIndex = setInterval(function () {
+            time--;
+            if (time == 0) {
+                clearInterval(timeIndex);
+            }
+        }, 100);
+        $.ajax({
+            url: "/Lab3Demo/getCustomerByPinyin",
+            contentType: "application/json",
+            data: s,
+            type: "POST",
+            success: function (result) {
+                $("#ProjectNumberSearch").css("display", "block");
+                var customers = result.pageInfo.list;
+                console.log(result);
+                $.each(customers,function (index,customer){
+                    console.log("im innnnnn")
+                    var cusInfo = `<p style="color: #337ab7">${customer}</p>`
+                    console.log(index+"--"+customer.custName);
+                    $("#ProjectNumberSearch").append(cusInfo);
+                })
+            }
+        })
+        $("#ProjectNumberSearch").empty();
+        $("#ProjectNumberSearch").css("display", "none");
+    }
+    if (customerName == ''){
+        $("#ProjectNumberSearch").empty();
+        $("#ProjectNumberSearch").css("display", "none");
+    }
+
+})

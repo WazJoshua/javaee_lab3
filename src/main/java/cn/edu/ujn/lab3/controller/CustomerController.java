@@ -79,12 +79,29 @@ public class CustomerController {
             nCustomers.add(c);
         }
         pageInfo.setList(nCustomers);
-
         ResultMSG success = ResultMSG.success();
         success.put("pageInfo", pageInfo);
         return success;
     }
 
+    @PostMapping("/getCustomerByPinyin")
+    @ResponseBody
+    public ResultMSG getCusByPinyin(@RequestBody String customerAndPage) {
+        System.out.println("customerAndPage = " + customerAndPage);
+        CustomerWithPageNumber customerWithPageNumber = gson.fromJson(customerAndPage, new TypeToken<CustomerWithPageNumber>() {
+        }.getType());
+        System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
+        Customer customer = customerWithPageNumber.getCustomer();
+        System.out.println(customer);
+        int pageNumber = customerWithPageNumber.getPn();
+        PageHelper.startPage(pageNumber, 5);
+        List<String> customers = customerService.selectByPinyin(customer.getCustPinyin());
+        PageInfo pageInfo = new PageInfo(customers, 5);
+        pageInfo.setList(customers);
+        ResultMSG success = ResultMSG.success();
+        success.put("pageInfo", pageInfo);
+        return success;
+    }
 
     @PostMapping("/createNewCus")
     @ResponseBody

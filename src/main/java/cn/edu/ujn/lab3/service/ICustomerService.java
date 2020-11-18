@@ -19,4 +19,6 @@ public interface ICustomerService {
 
     boolean insertCustomer(Customer customer);
 
+    List<String> selectByPinyin(String pinyin);
+
 }

@@ -12,6 +12,8 @@ public class Customer {
 
     private String custName;
 
+    private String custPinyin;
+
     private Integer custUserId;
 
     private Integer custCreateId;

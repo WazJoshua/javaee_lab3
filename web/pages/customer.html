@@ -235,6 +235,10 @@
                         <input type="text" class="form-control" id="customerName"
                                name="custName"/>
                     </div>
+                    <div class="contain__border__search" id="ProjectNumberSearch"
+                         style="position: absolute;left:360px;width: 190px;height: 300px;background-color: white;z-index: 10000;display: none">
+                        <p style="color: #337ab7">校长</p>
+                    </div>
                     <div class="form-group">
                         <label for="customerFrom">客户来源</label>
                         <select class="form-control" id="customerFrom" name="custSource">
@@ -817,23 +821,23 @@
             var darkstyle = "<style id='darkstyle'>" +
                 ".table-striped>tbody>tr:nth-of-type(odd){background-color:rgb(30,30,30);color:rgb(255,255,255)}" +
                 ".table-striped>tbody>tr:nth-of-type(even){background-color:rgb(50,50,50);color:rgb(255,255,255)}" +
-                "body{background-color:rgb(0,0,0)}" +
-                "#page-wrapper{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                "#page-wrapper2{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".navbar-default{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".table thead{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".panel-heading{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                "body{background-color:rgb(45,45,47)}" +
+                "#page-wrapper{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                "#page-wrapper2{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".navbar-default{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".table thead{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".panel-heading{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
                 ".page-header{color:rgb(255,255,255)}" +
                 ".navbar-brand{color:rgb(255,255,255)}" +
-                ".panel{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".pagination{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".sidebar ul li a.active{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".form-control{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".panel-default>.panel-heading{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
-                ".pagination>li>a, .pagination>li>span{background-color:rgb(0,0,0);}" +
-                ".navbar-default .navbar-brand{color: #fff}" +
-                ".pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{background-color:rgb(0,0,0);}" +
-                ".modal-content{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".panel{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".pagination{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".sidebar ul li a.active{background-color:rgb(45,45,47);color:#f3903a}" +
+                ".form-control{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".panel-default>.panel-heading{background-color:rgb(45,45,47);color:rgb(255,255,255)}" +
+                ".pagination>li>a, .pagination>li>span{background-color:rgb(45,45,47);}" +
+                ".navbar-default .navbar-brand{color: #f3903a}" +
+                ".pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{background-color:rgb(45,45,47);}" +
+                ".modal-content{background-color:rgb(45,45,47);color:#f3903a}" +
                 ".close span{color: white}" +
                 "</style>"
             $("head").append(darkstyle);
