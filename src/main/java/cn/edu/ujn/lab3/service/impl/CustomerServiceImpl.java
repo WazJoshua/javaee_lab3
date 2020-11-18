@@ -87,4 +87,9 @@ public class CustomerServiceImpl implements ICustomerService {
             return false;
         else return true;
     }
+
+    @Override
+    public List<String> selectByPinyin(String pinyin) {
+        return customerMapper.selectByPinyin(pinyin);
+    }
 }

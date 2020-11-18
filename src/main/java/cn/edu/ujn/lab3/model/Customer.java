@@ -33,6 +33,7 @@ public class Customer {
     private String custAddress;
 
     private Date custCreatetime;
+    private String custPinyin;
 
 
 }

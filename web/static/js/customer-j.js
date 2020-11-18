@@ -670,3 +670,55 @@ function editItem(){
         }
     })
 }
+
+/**************************************************动态查询框************************************************************/
+var customerName = $("#customerName");
+
+var time = 0;
+customerName.blur(function (){
+    $("#ProjectNumberSearch").empty();
+    $("#ProjectNumberSearch").css("display", "none");
+})
+customerName.bind('input', function sasa() {
+    var customerName = $("#customerName").val();
+    var s = JSON.stringify({
+        "pn": 1,
+        "customer": {
+            "custPinyin": customerName,
+        }
+    });
+    console.log(s);
+    if (time == 0){
+        time = 10;
+        var timeIndex = setInterval(function () {
+            time--;
+            if (time == 0) {
+                clearInterval(timeIndex);
+            }
+        }, 100);
+        $.ajax({
+            url: "/Lab3Demo/getCustomerByPinyin",
+            contentType: "application/json",
+            data: s,
+            type: "POST",
+            success: function (result) {
+                $("#ProjectNumberSearch").css("display", "block");
+                var customers = result.pageInfo.list;
+                console.log(result);
+                $.each(customers,function (index,customer){
+                    console.log("im innnnnn")
+                    var cusInfo = `<p style="color: #337ab7">${customer}</p>`
+                    console.log(index+"--"+customer.custName);
+                    $("#ProjectNumberSearch").append(cusInfo);
+                })
+            }
+        })
+        $("#ProjectNumberSearch").empty();
+        $("#ProjectNumberSearch").css("display", "none");
+    }
+    if (customerName == ''){
+        $("#ProjectNumberSearch").empty();
+        $("#ProjectNumberSearch").css("display", "none");
+    }
+
+})

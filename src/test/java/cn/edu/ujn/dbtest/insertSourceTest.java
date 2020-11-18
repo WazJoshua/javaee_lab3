@@ -34,7 +34,7 @@ public class insertSourceTest {
         baseDict.setDictTypeCode("001");
         baseDict.setDictItemName("dancer");
         baseDict.setDictTypeName("客户行业");
-        baseDict.setDictSort(baseDictService.selectSortMaximum()+1);
+//        baseDict.setDictSort(baseDictService.selectSortMaximum()+1);
         baseDict.setDictId(Integer.toString(baseDictService.selectIdMaximum()+1));
         baseDictService.insertDictSource(baseDict);
     }*/

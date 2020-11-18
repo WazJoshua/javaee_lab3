@@ -3,11 +3,8 @@ package cn.edu.ujn.lab3.security;
 import cn.edu.ujn.lab3.model.ResultMSG;
 import cn.edu.ujn.lab3.utils.JWTUtils;
 import com.google.gson.Gson;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,10 +64,10 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     private void responseMessage(HttpServletResponse response, PrintWriter out, ResultMSG responseData) {
 
 
-        responseData = ResultMSG.error("请先登录!");
-        response.setContentType("application/json;charset=UTF-8");
-        String json = gson.toJson(responseData);
-        out.print(json);
+        //responseData = ResultMSG.error("请先登录!");
+        response.setContentType("text/html;charset=UTF-8");
+        //String json = gson.toJson(responseData);
+        out.print("<script>alert('请先登录');location.reload();setTimeout(window.location.href='/Lab3Demo/login', 2000);</script>");
         out.flush();
         out.close();
     }

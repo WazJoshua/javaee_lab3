@@ -22,6 +22,7 @@ public class UserServiceImpl implements IUserService {
     public boolean registerUser(User u) {
         User byUsercode = userMapper.findByUsercode(u.getUsercode());
         if (byUsercode == null) {
+            u.setPassword(BCrypt.hashpw(u.getPassword(),BCrypt.gensalt()));
             int insert = userMapper.insert(u);
             return insert == -1 ? false : true;
         } else return false;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements IUserService {
             return false;
         }
 
-        if (byUsercode.getPassword().equals(user.getPassword())) {           //密码正确
+        if (BCrypt.checkpw(user.getPassword(), byUsercode.getPassword())/*byUsercode.getPassword().equals(user.getPassword())*/) {           //密码正确
             return true;                                                     //登陆成功
         } else return false;
     }

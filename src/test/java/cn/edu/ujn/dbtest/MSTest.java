@@ -37,5 +37,27 @@ public class MSTest {
         System.out.println("byUsercode = " + byUsercode);
     }
 
+    @Test
+    public void registTest(){
+        User user = new User();
+        user.setPassword("123");
+        user.setUsercode("111");
+        user.setUsername("123");
+        user.setUserState(1);
+        boolean b = userService.registerUser(user);
+        System.out.println("b = " + b);
+    }
+
+    @Test
+    public void loginTest(){
+        User user = new User();
+        user.setPassword("123");
+        user.setUsercode("m0001");
+        user.setUsername("123");
+        user.setUserState(1);
+        boolean b = userService.loginUser(user);
+        System.out.println("b = " + b);
+    }
+
 
 }

@@ -23,4 +23,6 @@ public interface ICustomerService {
 
     boolean deleteCusById(Integer id);
 
+    List<String> selectByPinyin(String pinyin);
+
 }

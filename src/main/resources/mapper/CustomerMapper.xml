@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="cn.edu.ujn.lab3.model.Customer">
         <id column="cust_id" jdbcType="INTEGER" property="custId"/>
         <result column="cust_name" jdbcType="VARCHAR" property="custName"/>
+        <result column="cust_pinyin" jdbcType="VARCHAR" property="custPinyin"/>
         <result column="cust_user_id" jdbcType="INTEGER" property="custUserId"/>
         <result column="cust_create_id" jdbcType="INTEGER" property="custCreateId"/>
         <result column="cust_source" jdbcType="VARCHAR" property="custSource"/>
@@ -18,6 +19,7 @@
     </resultMap>
     <resultMap id="withDict" type="cn.edu.ujn.lab3.model.Customer">
         <id column="cust_id" jdbcType="INTEGER" property="custId"/>
+        <result column="cust_pinyin" jdbcType="VARCHAR" property="custPinyin"/>
         <result column="cust_name" jdbcType="VARCHAR" property="custName"/>
         <result column="cust_user_id" jdbcType="INTEGER" property="custUserId"/>
         <result column="cust_create_id" jdbcType="INTEGER" property="custCreateId"/>
@@ -32,7 +34,7 @@
         <result column="cust_level" jdbcType="VARCHAR" property="custLevel"/>
     </resultMap>
     <sql id="Base_Column_List">
-    cust_id, cust_name, cust_user_id, cust_create_id, cust_source, cust_industry, cust_level, 
+   cust_id,cust_pinyin, cust_name, cust_user_id, cust_create_id, cust_source, cust_industry, cust_level,
     cust_linkman, cust_phone, cust_mobile, cust_zipcode, cust_address, cust_createtime
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -40,6 +42,9 @@
         <include refid="Base_Column_List"/>
         from customer
         where cust_id = #{custId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByPinyin" resultType="java.lang.String">
+        select cust_name from customer where cust_pinyin like concat('%','${pinyin}','%')
     </select>
     <select id="finaAllCustomer" resultType="cn.edu.ujn.lab3.model.Customer">
       select * from customer
@@ -70,12 +75,12 @@
     where cust_id = #{custId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="cn.edu.ujn.lab3.model.Customer">
-    insert into customer (cust_id, cust_name, cust_user_id, 
+    insert into customer (cust_pinyin,cust_id, cust_name, cust_user_id,
       cust_create_id, cust_source, cust_industry, 
       cust_level, cust_linkman, cust_phone, 
       cust_mobile, cust_zipcode, cust_address, 
       cust_createtime)
-    values (#{custId,jdbcType=INTEGER}, #{custName,jdbcType=VARCHAR}, #{custUserId,jdbcType=INTEGER}, 
+    values (#{custPinyin,jdbcType=VARCHAR},#{custId,jdbcType=INTEGER}, #{custName,jdbcType=VARCHAR}, #{custUserId,jdbcType=INTEGER},
       #{custCreateId,jdbcType=INTEGER}, #{custSource,jdbcType=VARCHAR}, #{custIndustry,jdbcType=VARCHAR}, 
       #{custLevel,jdbcType=VARCHAR}, #{custLinkman,jdbcType=VARCHAR}, #{custPhone,jdbcType=VARCHAR}, 
       #{custMobile,jdbcType=VARCHAR}, #{custZipcode,jdbcType=VARCHAR}, #{custAddress,jdbcType=VARCHAR}, 
@@ -84,6 +89,9 @@
     <insert id="insertSelective" parameterType="cn.edu.ujn.lab3.model.Customer">
         insert into customer
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="custPinyin != null">
+                cust_pinyin,
+            </if>
             <if test="custId != null">
                 cust_id,
             </if>
@@ -125,6 +133,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="custPinyin != null">
+                #{custPinyin,jdbcType=VARCHAR},
+            </if>
             <if test="custId != null">
                 #{custId,jdbcType=INTEGER},
             </if>
@@ -172,6 +183,9 @@
             <if test="custName != null">
                 cust_name = #{custName,jdbcType=VARCHAR},
             </if>
+            <if test="custPinyin != null">
+                cust_pinyin = #{custPinyin,jdbcType=VARCHAR},
+            </if>
             <if test="custUserId != null">
                 cust_user_id = #{custUserId,jdbcType=INTEGER},
             </if>
@@ -211,6 +225,7 @@
     <update id="updateByPrimaryKey" parameterType="cn.edu.ujn.lab3.model.Customer">
     update customer
     set cust_name = #{custName,jdbcType=VARCHAR},
+    cust_pinyin = #{custPinyin,jdbcType=VARCHAR},
       cust_user_id = #{custUserId,jdbcType=INTEGER},
       cust_create_id = #{custCreateId,jdbcType=INTEGER},
       cust_source = #{custSource,jdbcType=VARCHAR},

@@ -35,7 +35,7 @@ public class LoginUserController {
 
     @GetMapping("/")
     public String initPage() {
-        return "/login";
+        return "loginpage";
     }
 
     @GetMapping("/login")
@@ -83,7 +83,6 @@ public class LoginUserController {
     }
 
 
-
     @PostMapping("/loginUser")
     @ResponseBody
     public ResultMSG loginUser(@RequestBody String userData, HttpServletResponse response) {
@@ -116,16 +115,18 @@ public class LoginUserController {
     }
 
     @GetMapping("logoutUser")
-    @ResponseBody
-    public String logoutUser(HttpServletRequest request,HttpServletResponse response){
+    public String logoutUser(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return "redirect:/login";
+        }
         for (Cookie c :
                 cookies) {
             c.setMaxAge(0);
             c.setPath("/");
             response.addCookie(c);
         }
-        return "loginpage";
+        return "redirect:/login";
     }
 
     @GetMapping("/main.do")
