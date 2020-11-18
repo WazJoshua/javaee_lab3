@@ -1,10 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <title>客户管理</title>
     <!-- 引入css样式文件 -->
     <!-- Bootstrap Core CSS -->
@@ -18,7 +16,7 @@
     <!-- Custom Fonts -->
     <link href="http://localhost:8765/Lab3Demo/static/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="http://localhost:8765/Lab3Demo/static/css/boot-crm.css" rel="stylesheet" type="text/css"/>
-    <link href="../static/css/input-style.css">
+    <link href="http://localhost:8765/Lab3Demo/static/css/input-style.css">
 
 </head>
 <body>
@@ -30,8 +28,8 @@
             <a class="navbar-brand" href="customer/list.action">客户管理系统</a>
         </div>
         <div id="lightOrDark" style="width: 50px;height: 50px;float: right;border-radius: 50%; border: #337ab7 solid 1px;">
-<!--            <img src="../static/images/moon.png">-->
-<!--            <img src="../static/images/sun.png">-->
+            <!--            <img src="../static/images/moon.png">-->
+            <!--            <img src="../static/images/sun.png">-->
         </div>
         <!-- 导航栏右侧图标部分 -->
         <ul class="nav navbar-top-links navbar-right">
@@ -180,7 +178,7 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置</a></li>
                     <li class="divider"></li>
                     <li>
-                        <a href="/logout.action">
+                        <a href="/Lab3Demo/logoutUser">
                             <i class="fa fa-sign-out fa-fw"></i>退出登录
                         </a>
                     </li>
@@ -218,7 +216,7 @@
         <!-- 左侧显示列表部分 end-->
     </nav>
 
-    <!---------------------------------------------------- 客户列表查询部分  start--------------------------------------------->
+    <!-- 客户列表查询部分  start-->
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -298,8 +296,7 @@
             <!-- /.col-lg-12 -->
         </div>
     </div>
-    <!------------------------------------------------- 客户列表查询部分  end------------------------------------------>
-
+    <!-- 客户列表查询部分  end-->
     <!---------------------------------------------------- 数据字典列表查询部分  start--------------------------------------------->
     <div id="page-wrapper2" style="display: none">
         <div class="row">
@@ -318,7 +315,7 @@
                             <option value="">--请选择--</option>
                             <!--js填充选项-->
                         </select>
-                    </div>
+</div>
                     <div class="form-group">
                         <label for="dictItemName">条目名称</label>
                         <select class="form-control" id="dictItemName" name="dictItemName">
@@ -345,6 +342,7 @@
                             <th>字段编号</th>
                             <th>字段名称</th>
                             <th>条目名称</th>
+                            <th>是否可用</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -367,7 +365,7 @@
 </div>
 
 
-<!--------------------------------------------------- 创建客户模态框 ----------------------------------------------------------->
+<!-- 创建客户模态框 -->
 <div class="modal fade" id="newCustomerDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -386,13 +384,13 @@
                         </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="new_customerName" placeholder="客户名称"
-                                   name="cust_name"/>
+                                   name="custName"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="new_customerFrom" style="float:left;padding:7px 15px 0 27px;">客户来源</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="new_customerFrom" name="cust_source">
+                            <select class="form-control" id="new_customerFrom" name="custSource">
                                 <option value="">--请选择--</option>
                                 <!--js填充选项-->
                             </select>
@@ -401,7 +399,7 @@
                     <div class="form-group">
                         <label for="new_custIndustry" style="float:left;padding:7px 15px 0 27px;">所属行业</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="new_custIndustry" name="cust_industry">
+                            <select class="form-control" id="new_custIndustry" name="custIndustry">
                                 <option value="">--请选择--</option>
                                 <!--js填充选项-->
                             </select>
@@ -410,7 +408,7 @@
                     <div class="form-group">
                         <label for="new_custLevel" style="float:left;padding:7px 15px 0 27px;">客户级别</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="new_custLevel" name="cust_level">
+                            <select class="form-control" id="new_custLevel" name="custLevel">
                                 <option value="">--请选择--</option>
                                 <!--js填充选项-->
                             </select>
@@ -420,35 +418,35 @@
                         <label for="new_linkMan" class="col-sm-2 control-label">联系人</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="new_linkMan" placeholder="联系人"
-                                   name="cust_linkman"/>
+                                   name="custLinkman"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="new_phone" class="col-sm-2 control-label">固定电话</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="new_phone" placeholder="固定电话"
-                                   name="cust_phone"/>
+                                   name="custPhone"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="new_mobile" class="col-sm-2 control-label">移动电话</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="new_mobile" placeholder="移动电话"
-                                   name="cust_mobile"/>
+                                   name="custMobile"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="new_zipcode" class="col-sm-2 control-label">邮政编码</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="new_zipcode" placeholder="邮政编码"
-                                   name="cust_zipcode"/>
+                                   name="custZipcode"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="new_address" class="col-sm-2 control-label">联系地址</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="new_address" placeholder="联系地址"
-                                   name="cust_address"/>
+                                   name="custAddress"/>
                         </div>
                     </div>
                 </form>
@@ -460,9 +458,7 @@
         </div>
     </div>
 </div>
-<!--------------------------------------------------- 创建客户模态框 ----------------------------------------------------------->
-
-<!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
+<!-- 修改客户模态框 -->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -554,8 +550,6 @@
         </div>
     </div>
 </div>
-<!------------------------------------------------------------- 修改客户模态框 --------------------------------------------------->
-
 <!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
 <div class="modal fade" id="itemdialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
@@ -595,6 +589,54 @@
 </div>
 <!------------------------------------------------------------ 添加条目模态框 ------------------------------------------------------>
 
+<!------------------------------------------------------------ 修改条目模态框 ------------------------------------------------------>
+<div class="modal fade" id="editItemDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel5">修改条目</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editsource">
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新的条目名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="editItemId" placeholder="ID" disabled="true"
+                                   name="newsource"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_dictTypeName" style="float:left;padding:7px 15px 0 27px;">是否可用</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="edit_dictEnable" name="cust_source">
+                                <option value="">--请选择--</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                                <!--js填充选项-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone" class="col-sm-2 control-label">新的条目名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="editItemInput" placeholder="新的条目名称"
+                                   name="newsource"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="editItem()">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------ 修改条目模态框 ------------------------------------------------------>
+
 <!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
 <div class="modal fade" id="sourcedialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
@@ -632,7 +674,7 @@
 </div>
 <!------------------------------------------------------------ 新建字段模态框 ------------------------------------------------------>
 
-<!------------------------------------------------------------- 引入js文件 ------------------------------------------------------------>
+<!-- 引入js文件 -->
 <!-- jQuery -->
 <script src="http://localhost:8765/Lab3Demo/static/js/jquery-1.11.3.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -645,10 +687,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="http://localhost:8765/Lab3Demo/static/js/sb-admin-2.js"></script>
 <script src="http://localhost:8765/Lab3Demo/static/js/customer-j.js"></script>
-<!------------------------------------------------------------ 引入js文件 ------------------------------------------------------------->
-
-
-<!------------------------------------------------------------ 编写js代码 ------------------------------------------------------------>
+<!-- 编写js代码 -->
 <script type="text/javascript">
     $(document).ready(function () {
         if (getCookie("isDark") == 1) {
@@ -673,61 +712,10 @@
     function clearSource() {
         $("#newsourceinput").val("");
     }
-
-
-    // 通过id获取修改的客户信息
-    function editCustomer(id) {
-        $.ajax({
-            type: "get",
-            url: "<%=basePath%>customer/getCustomerById.action",
-            data: {"id": id},
-            success: function (data) {
-                $("#edit_cust_id").val(data.cust_id);
-                $("#edit_customerName").val(data.cust_name);
-                $("#edit_customerFrom").val(data.cust_source)
-                $("#edit_custIndustry").val(data.cust_industry)
-                $("#edit_custLevel").val(data.cust_level)
-                $("#edit_linkMan").val(data.cust_linkman);
-                $("#edit_phone").val(data.cust_phone);
-                $("#edit_mobile").val(data.cust_mobile);
-                $("#edit_zipcode").val(data.cust_zipcode);
-                $("#edit_address").val(data.cust_address);
-
-            }
-        });
-    }
-
-    // 执行修改客户操作
-    function updateCustomer() {
-        $.post("<%=basePath%>customer/update.action", $("#edit_customer_form").serialize(), function (data) {
-            if (data == "OK") {
-                alert("客户信息更新成功！");
-                window.location.reload();
-            } else {
-                alert("客户信息更新失败！");
-                window.location.reload();
-            }
-        });
-    }
-
-    // 删除客户
-    function deleteCustomer(id) {
-        if (confirm('确实要删除该客户吗?')) {
-            $.post("<%=basePath%>customer/delete.action", {"id": id},
-                function (data) {
-                    if (data == "OK") {
-                        alert("客户删除成功！");
-                        window.location.reload();
-                    } else {
-                        alert("删除客户失败！");
-                        window.location.reload();
-                    }
-                });
-        }
-    }
-
     $(function () {
+
         $('#side-menu').metisMenu();
+
     });
 
     //Loads the correct sidebar on window load,
@@ -784,6 +772,8 @@
                 ".pagination>li>a, .pagination>li>span{background-color:rgb(0,0,0);}" +
                 ".navbar-default .navbar-brand{color: #fff}" +
                 ".pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{background-color:rgb(0,0,0);}" +
+                ".modal-content{background-color:rgb(0,0,0);color:rgb(255,255,255)}" +
+                ".close span{color: white}" +
                 "</style>"
             $("head").append(darkstyle);
             document.cookie = "isDark = 1";

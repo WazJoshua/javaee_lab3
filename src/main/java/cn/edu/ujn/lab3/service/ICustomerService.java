@@ -19,4 +19,8 @@ public interface ICustomerService {
 
     boolean insertCustomer(Customer customer);
 
+    public boolean updateCusById(Customer customer);
+
+    boolean deleteCusById(Integer id);
+
 }

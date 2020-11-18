@@ -27,17 +27,17 @@ public class insertSourceTest {
     @Autowired
     BaseDictMapper baseDictMapper;
 
-    @Test
+/*    @Test
     public void Test01(){
         BaseDict baseDict = new BaseDict();
         baseDict.setDictEnable("1");
         baseDict.setDictTypeCode("001");
         baseDict.setDictItemName("dancer");
         baseDict.setDictTypeName("客户行业");
-//        baseDict.setDictSort(baseDictService.selectSortMaximum()+1);
+        baseDict.setDictSort(baseDictService.selectSortMaximum()+1);
         baseDict.setDictId(Integer.toString(baseDictService.selectIdMaximum()+1));
         baseDictService.insertDictSource(baseDict);
-    }
+    }*/
 
 
 }

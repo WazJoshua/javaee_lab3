@@ -7,12 +7,11 @@ import cn.edu.ujn.lab3.service.IBaseDictService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -31,7 +30,7 @@ public class BaseDictController {
 
     Gson gson = new Gson();
 
-    @PostMapping("/getcustomerFrom")
+    @PostMapping("/getcustomerFrom.do")
     @ResponseBody
     public ResultMSG cusSource() {
         List<BaseDict> sources = baseDictService.findDicByDicType("002");
@@ -40,7 +39,7 @@ public class BaseDictController {
         return success;
     }
 
-    @PostMapping("/getcustIndustry")
+    @PostMapping("/getcustIndustry.do")
     @ResponseBody
     public ResultMSG cusIndustry() {
         List<BaseDict> sources = baseDictService.findDicByDicType("001");
@@ -49,7 +48,7 @@ public class BaseDictController {
         return success;
     }
 
-    @PostMapping("/getcustLevel")
+    @PostMapping("/getcustLevel.do")
     @ResponseBody
     public ResultMSG cusLevel() {
         List<BaseDict> sources = baseDictService.findDicByDicType("006");
@@ -58,7 +57,7 @@ public class BaseDictController {
         return success;
     }
 
-    @PostMapping("/getdictItemName")
+    @PostMapping("/getdictItemName.do")
     @ResponseBody
     public ResultMSG dictItemName(@RequestBody String dictTypeCode) {
         System.out.println(dictTypeCode);
@@ -68,7 +67,7 @@ public class BaseDictController {
         return success;
     }
 
-    @PostMapping("/getdictTypeName")
+    @PostMapping("/getdictTypeName.do")
     @ResponseBody
     public ResultMSG dictTypeName() {
         List<BaseDict> sources = baseDictService.findAllTypeName();
@@ -77,7 +76,7 @@ public class BaseDictController {
         return success;
     }
 
-    @PostMapping("/createItem")
+    @PostMapping("/createItem.do")
     @ResponseBody
     public ResultMSG addItem(@RequestBody BaseDict baseDict) {
         System.out.println(baseDict);
@@ -91,7 +90,7 @@ public class BaseDictController {
         } else return ResultMSG.error();
     }
 
-    @PostMapping("/createSource")
+    @PostMapping("/createSource.do")
     @ResponseBody
     public ResultMSG addSource(@RequestBody BaseDict baseDict) {
         Format f = new DecimalFormat("000");
@@ -107,7 +106,7 @@ public class BaseDictController {
         } else return ResultMSG.error();
     }
 
-    @PostMapping("/getDictBySel")
+    @PostMapping("/getDictBySel.do")
     @ResponseBody
     public ResultMSG getDictBySel(@RequestBody String dictAndPage) {
         System.out.println("dictAndPage = " + dictAndPage);
@@ -127,5 +126,22 @@ public class BaseDictController {
         return success;
     }
 
+    @RequestMapping(value = "/deleteDict.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultMSG deleteDict(@RequestBody String dictId){
+        BaseDict baseDict = gson.fromJson(dictId,new TypeToken<BaseDict>(){}.getType());
+        baseDictService.deleteDictById(baseDict.getDictId());
+        ResultMSG success = ResultMSG.success();
+        return success;
+    }
+
+    @PostMapping("/updateDict.do")
+    @ResponseBody
+    public ResultMSG updateDict(@RequestBody String dictId){
+        BaseDict baseDict = gson.fromJson(dictId,new TypeToken<BaseDict>(){}.getType());
+        baseDictService.updateDictBySel(baseDict);
+        ResultMSG success = ResultMSG.success();
+        return success;
+    }
 
 }

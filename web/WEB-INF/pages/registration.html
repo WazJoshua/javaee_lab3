@@ -8,7 +8,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/input-style.css" rel="stylesheet">
+    <link href="http://localhost:8765/Lab3Demo/static/css/input-style.css" rel="stylesheet">
 </head>
 <body style="background-color: #122b40">
 <div style="position: absolute;width: 30%;height: 70%;left: 50%;top: 50%;transform: translate(-50%,-50%); background-color:rgba(0,0,0,0.6)">
@@ -100,12 +100,12 @@
             var password = $("#password").val();
             if (usercode == "" || username == "" || password == "")
                 $("#altMsg").html("请输入用户名,账号,密码");
-                $("#altMsg").animate({left: "51%"}, 50);
-                $("#altMsg").animate({left: "49%"}, 50);
-                $("#altMsg").animate({left: "51%"}, 50);
-                $("#altMsg").animate({left: "49%"}, 50);
-                $("#altMsg").animate({left: "50%"}, 50);
-            let s = JSON.stringify({"usercode": usercode, "username": username, "userpassword": password});
+            $("#altMsg").animate({left: "51%"}, 50);
+            $("#altMsg").animate({left: "49%"}, 50);
+            $("#altMsg").animate({left: "51%"}, 50);
+            $("#altMsg").animate({left: "49%"}, 50);
+            $("#altMsg").animate({left: "50%"}, 50);
+            let s = JSON.stringify({"usercode": usercode, "username": username, "password": password});
             $.ajax({
                 type: "POST",
                 url: "/Lab3Demo/registerUser",

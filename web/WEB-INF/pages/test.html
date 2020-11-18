@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="Subform">
+    <input type="text" name="name1" id="name1"/>
+    <input type="text" name="name2" id="name2">
+    <button type="button" id="submitBut">提交</button>
+</form>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $("#submitBut").click(
+        function (){
+            var arrayT = $("#Subform").serializeArray();
+            var s = JSON.stringify(arrayT);
+            $.ajax({
+                url:"/Lab3Demo/testJson",
+                data:s,
+                type:"POST",
+                contentType:"application/json",
+                success:function (result){
+                    console.log(result)
+                }
+            })
+        }
+    )
+</script>
+</html>

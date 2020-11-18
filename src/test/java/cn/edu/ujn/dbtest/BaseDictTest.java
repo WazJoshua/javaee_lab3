@@ -43,12 +43,4 @@ public class BaseDictTest {
         CustomerWithPageNumber customer = gson.fromJson(j, new TypeToken<CustomerWithPageNumber>(){}.getType());
         System.out.println("customer = " + customer);
     }
-
-    @Test
-    public void test03(){
-        List<BaseDict> baseDicts = baseDictService.findAllTypeName();
-        for(BaseDict b : baseDicts){
-            System.out.println(b.getDictTypeName());
-        }
-    }
 }

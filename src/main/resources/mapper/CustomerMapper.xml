@@ -44,11 +44,15 @@
     <select id="finaAllCustomer" resultType="cn.edu.ujn.lab3.model.Customer">
       select * from customer
     </select>
-    <select id="selectCusBySel" parameterType="cn.edu.ujn.lab3.model.Customer" resultType="cn.edu.ujn.lab3.model.Customer">
+    <select id="selectCusBySel" parameterType="cn.edu.ujn.lab3.model.Customer"
+            resultType="cn.edu.ujn.lab3.model.Customer">
         select * from customer
         <where>
+            <if test="customer.custId!=null and customer.custId!=''">
+                cust_id=#{customer.custId}
+            </if>
             <if test="customer.custName!=null and customer.custName!=''">
-                cust_name=#{customer.custName}
+                AND cust_name like concat('%',#{customer.custName},'%')
             </if>
             <if test="customer.custSource!=null and customer.custSource!=''">
                 AND cust_source=#{customer.custSource}

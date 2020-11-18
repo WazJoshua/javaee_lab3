@@ -33,7 +33,7 @@ public class CustomerController {
     Gson gson = new Gson();
 
 
-    @PostMapping("/getAllCustomer")
+    @PostMapping("/getAllCustomer.do")
     @ResponseBody
     public ResultMSG getAllCus(@RequestParam(value = "pn", defaultValue = "1") Integer pageNumber) {
         System.out.println("pageNumber = " + pageNumber);
@@ -55,21 +55,22 @@ public class CustomerController {
         return success;
     }
 
-    @PostMapping("/getCustomerBySel")
+    @PostMapping("/getCustomerBySel.do")
     @ResponseBody
     public ResultMSG getCusBySel(@RequestBody String customerAndPage) {
-        System.out.println("customerAndPage = " + customerAndPage);
+        //System.out.println("customerAndPage = " + customerAndPage);
         CustomerWithPageNumber customerWithPageNumber = gson.fromJson(customerAndPage, new TypeToken<CustomerWithPageNumber>() {
         }.getType());
-        System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
+        //System.out.println("customerWithPageNumber =================== " + customerWithPageNumber);
         Customer customer = customerWithPageNumber.getCustomer();
-        System.out.println(customer);
         int pageNumber = customerWithPageNumber.getPn();
         PageHelper.startPage(pageNumber, 5);
         List<Customer> customers = customerService.selectCusBySel(customer);
+
         PageInfo pageInfo = new PageInfo(customers, 5);
         List<Customer> nCustomers = new ArrayList<Customer>();
-        for (Customer c : customers) {
+        for (Customer c :
+                customers) {
             BaseDict cusSource = baseDictMapper.selectByPrimaryKey(c.getCustSource());
             BaseDict cusIndustry = baseDictMapper.selectByPrimaryKey(c.getCustIndustry());
             BaseDict cusLevel = baseDictMapper.selectByPrimaryKey(c.getCustLevel());
@@ -86,7 +87,7 @@ public class CustomerController {
     }
 
 
-    @PostMapping("/createNewCus")
+    @PostMapping("/createNewCus.do")
     @ResponseBody
     public ResultMSG createNewCus(@RequestBody Customer customer) {
         System.out.println("customer = " + customer);
@@ -97,13 +98,42 @@ public class CustomerController {
         return ResultMSG.error();
     }
 
-   /* @PostMapping("/updateCustomer")
+    @PostMapping("/getCustomerById.do")
     @ResponseBody
-    public ResultMSG updateCus(@RequestBody String customer){
+    public ResultMSG getCusById(@RequestParam(value = "id") Integer id) {
+        //System.out.println("id = " + id);
+        Customer customer = new Customer();
+        customer.setCustId(id);
+        //System.out.println("customer = " + customer);
+        List<Customer> customers = customerService.selectCusBySel(customer);
+        if (customers.get(0) == null) {
+            return ResultMSG.error();
+        }
+        Customer resultCus = customers.get(0);
+        System.out.println("resultCus = " + resultCus);
+        ResultMSG success = ResultMSG.success();
+        success.put("customer", resultCus);
+        return success;
+    }
 
+    @PostMapping("/updateCusById.do")
+    @ResponseBody
+    public ResultMSG updateCusById(@RequestBody Customer customer) {
+        boolean b = customerService.updateCusById(customer);
+        if (b) {
+            return ResultMSG.success();
+        } else {
+            return ResultMSG.error();
+        }
+    }
 
+    @PostMapping("/deleteCusById")
+    @ResponseBody
+    public ResultMSG deleteCusById(@RequestParam(value = "custId") Integer id) {
+        boolean b = customerService.deleteCusById(id);
+        if (b) {
+            return ResultMSG.success();
+        } else return ResultMSG.error();
 
-    }*/
-
-
+    }
 }

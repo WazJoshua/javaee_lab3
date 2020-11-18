@@ -11,8 +11,8 @@
     </context:component-scan>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
-      <!--  <property name="prefix" value="/WEB-INF/pages/"></property>-->
-        <!--<property name="suffix" value=".html"></property>-->
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <property name="suffix" value=".html"></property>
     </bean>
 
     <!--两个标准配置-->
@@ -23,9 +23,26 @@
         <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"></constructor-arg>
+                <property name="supportedMediaTypes" value="application/json;charset=UTF-8"></property>
             </bean>
             <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter">
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="/*.do"/>
+            <!-- /register 和 /login 不需要拦截-->
+            <!--<mvc:exclude-mapping path="/register" />
+            <mvc:exclude-mapping path="/registration.html" />
+            <mvc:exclude-mapping path="/loginpage.html" />
+            <mvc:exclude-mapping path="/login" />
+            <mvc:exclude-mapping path="/index.html"/>-->
+            <bean class="cn.edu.ujn.lab3.security.TokenInterceptor"></bean>
+            <!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

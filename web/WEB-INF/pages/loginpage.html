@@ -7,7 +7,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/input-style.css" rel="stylesheet">
+    <link href="http://localhost:8765/Lab3Demo/static/css/input-style.css" rel="stylesheet">
 </head>
 <body style="background-color: #122b40">
 
@@ -30,7 +30,7 @@
 
         <div style="position: relative;width: 300px; margin-bottom: 30px;left: 50%;transform: translateX(-50%);"
              class="input-effect">
-            <input class="effect-20" placeholder="" name="password" type="text" id="password">
+            <input class="effect-20" placeholder="" name="password" type="password" id="password">
             <label id="password-label">密码</label>
             <span class="focus-border">
             <i></i>
@@ -38,11 +38,14 @@
         </div>
 
         <br/>
-        <div>
+        <div><div>
             <button type="button" class="btn btn-primary" id="loginButton"
                     style="position:absolute;left: 50%;transform: translateX(-50%)">
                 登录
-            </button>
+            </button></div>
+            <div>
+                <a href="/Lab3Demo/register">注册</a>
+            </div>
         </div>
         <br/><br/>
         <div id="altMsg" style="color: red ; display: block;position: absolute; left: 50%;transform: translateX(-50%); bottom: 50px;font-size: 15px"></div>
@@ -73,7 +76,7 @@
                 data: s,
                 success: function (success) {
                     if (success.code == 200) {
-                        window.location.href = "/Lab3Demo/main"
+                        window.location.href = "/Lab3Demo/main.do"
                     } else if (success.code == 416) {
                         $("#altMsg").html(success.msg);
                     } else if (success.code == 444) {

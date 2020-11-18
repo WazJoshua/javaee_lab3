@@ -30,4 +30,5 @@ public interface BaseDictMapper {
     List<BaseDict> selectDictBySel(BaseDict baseDict);
 
     List<BaseDict> selectAllTypeName();
+
 }
