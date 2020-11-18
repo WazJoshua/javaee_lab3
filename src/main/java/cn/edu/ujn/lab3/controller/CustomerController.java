@@ -33,7 +33,7 @@ public class CustomerController {
     Gson gson = new Gson();
 
 
-    @PostMapping("/getAllCustomer")
+    @PostMapping("/getAllCustomer.do")
     @ResponseBody
     public ResultMSG getAllCus(@RequestParam(value = "pn", defaultValue = "1") Integer pageNumber) {
         System.out.println("pageNumber = " + pageNumber);
@@ -55,7 +55,7 @@ public class CustomerController {
         return success;
     }
 
-    @PostMapping("/getCustomerBySel")
+    @PostMapping("/getCustomerBySel.do")
     @ResponseBody
     public ResultMSG getCusBySel(@RequestBody String customerAndPage) {
         //System.out.println("customerAndPage = " + customerAndPage);
@@ -89,7 +89,7 @@ public class CustomerController {
     }
 
 
-    @PostMapping("/createNewCus")
+    @PostMapping("/createNewCus.do")
     @ResponseBody
     public ResultMSG createNewCus(@RequestBody Customer customer) {
         System.out.println("customer = " + customer);
@@ -100,13 +100,13 @@ public class CustomerController {
         return ResultMSG.error();
     }
 
-    @PostMapping("/getCustomerById")
+    @PostMapping("/getCustomerById.do")
     @ResponseBody
     public ResultMSG getCusById(@RequestParam(value = "id") Integer id) {
-        System.out.println("id = " + id);
+        //System.out.println("id = " + id);
         Customer customer = new Customer();
         customer.setCustId(id);
-        System.out.println("customer = " + customer);
+        //System.out.println("customer = " + customer);
         List<Customer> customers = customerService.selectCusBySel(customer);
         if (customers.get(0) == null) {
             return ResultMSG.error();
@@ -118,7 +118,7 @@ public class CustomerController {
         return success;
     }
 
-    @PostMapping("/updateCusById")
+    @PostMapping("/updateCusById.do")
     @ResponseBody
     public ResultMSG updateCusById(@RequestBody Customer customer) {
         boolean b = customerService.updateCusById(customer);

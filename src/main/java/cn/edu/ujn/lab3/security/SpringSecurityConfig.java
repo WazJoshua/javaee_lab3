@@ -11,55 +11,56 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * @Author:Joshua
  * @Date:2020/11/4
  */
-@Configuration
-@EnableWebSecurity
+/*@Configuration
+@EnableWebSecurity*/
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    DruidDataSource dataSource;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select user_code,user_password,user_state from sys_user where user_code=?")
-        ;
-    }
+    //自定义认证
+    @Resource
+    private LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
+
+    //登录成功handler
+    @Resource
+    private LoginSuccessHandler loginSuccessHandler;
+
+    //登录失败handler
+    @Resource
+    private LoginFailureHandler loginFailureHandler;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                /*.httpBasic()
 
-                .and()
                 .authorizeRequests()
                 .antMatchers("/static/**", "/index.html", "/pages/loginpage.html", "/pages/registration.html")
                 .permitAll()
 
-                .and()*/
-                .authorizeRequests()
-                //.anyRequest()
-                //.authenticated()
-                //.access("hasRole('1')")
-                .antMatchers("/**", "/")
-                .permitAll()
-
-                /*.and()
+                .and()
                 .formLogin()
                 .loginPage("/pages/loginpage.html")
                 .loginProcessingUrl("/loginUser")
-                .successForwardUrl("/login/success")
-                .usernameParameter("usercode")
-                .passwordParameter("password")
-
-                .and()*/
+                .successHandler(loginSuccessHandler)//成功登录处理器
+                .failureHandler(loginFailureHandler)//失败登录处理器
+                .permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated()//所有请求都需要认证
 
         ;
         http.csrf().disable();
         /*http.cors();        //开启跨域*/
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //这里要设置自定义认证
+        auth.authenticationProvider(loginValidateAuthenticationProvider);
     }
 }

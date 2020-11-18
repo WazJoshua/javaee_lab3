@@ -6,7 +6,6 @@ import cn.edu.ujn.lab3.service.IBaseDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,4 +29,50 @@ public class BaseDictServiceImpl implements IBaseDictService {
         }*/
         return baseDicts;
     }
+
+    @Override
+    public boolean insertDictSource(BaseDict baseDict) {
+        int insert = baseDictMapper.insert(baseDict);
+        if (insert == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int selectIdMaximum() {
+        return baseDictMapper.selectIdMaximum();
+    }
+
+    @Override
+    public int selectSortMaximum(String s) {
+        return baseDictMapper.selectSortMaximum(s);
+    }
+
+    @Override
+    public List<BaseDict> findDictBySel(BaseDict baseDict) {
+        return baseDictMapper.selectDictBySel(baseDict);
+    }
+
+    @Override
+    public List<BaseDict> findAllTypeName() {
+        return baseDictMapper.selectAllTypeName();
+    }
+
+    @Override
+    public int selectTypeCodeMaximum() {
+        return baseDictMapper.selectTypeCodeMaximum();
+    }
+
+    @Override
+    public int deleteDictById(String dictId) {
+        return baseDictMapper.deleteByPrimaryKey(dictId);
+    }
+
+    @Override
+    public int updateDictBySel(BaseDict baseDict) {
+        return baseDictMapper.updateByPrimaryKeySelective(baseDict);
+    }
+
+
 }

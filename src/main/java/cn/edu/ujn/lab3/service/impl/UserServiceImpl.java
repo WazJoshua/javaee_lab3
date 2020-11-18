@@ -3,6 +3,7 @@ package cn.edu.ujn.lab3.service.impl;
 import cn.edu.ujn.lab3.dao.UserMapper;
 import cn.edu.ujn.lab3.model.User;
 import cn.edu.ujn.lab3.service.IUserService;
+import cn.edu.ujn.lab3.utils.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

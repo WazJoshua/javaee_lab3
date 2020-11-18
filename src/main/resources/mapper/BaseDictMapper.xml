@@ -28,6 +28,30 @@
         where dict_type_code=#{id}
         order by dict_sort
     </select>
+
+    <select id="selectIdMaximum" resultType="java.lang.Integer">
+        SELECT MAX(CAST(dict_id AS SIGNED)) FROM base_dict;
+    </select>
+    <select id="selectSortMaximum" resultType="java.lang.Integer">
+        SELECT MAX(CAST(dict_sort AS SIGNED)) FROM base_dict where dict_type_code = #{s};
+    </select>
+    <select id="selectDictBySel" resultType="cn.edu.ujn.lab3.model.BaseDict" parameterType="cn.edu.ujn.lab3.model.BaseDict" >
+        select * from base_dict
+        <where>
+            <if test="dictTypeCode!=null and dictTypeCode!=''">
+                dict_type_code=#{dictTypeCode}
+            </if>
+            <if test="dictItemName!=null and dictItemName!=''">
+                AND dict_item_name=#{dictItemName}
+            </if>
+        </where>
+    </select>
+    <select id="selectAllTypeName"  resultMap="BaseResultMap">
+        select dict_type_name,dict_type_code,max(dict_sort) as dict_sort from base_dict group by dict_type_code
+    </select>
+    <select id="selectTypeCodeMaximum" resultType="java.lang.Integer">
+        SELECT MAX(CAST(dict_type_code AS SIGNED)) FROM base_dict;
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from base_dict
     where dict_id = #{dictId,jdbcType=VARCHAR}

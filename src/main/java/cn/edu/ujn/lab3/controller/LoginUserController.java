@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -32,17 +33,28 @@ public class LoginUserController {
         this.userService = userService;
     }
 
+    @GetMapping("/")
+    public String initPage() {
+        return "/login";
+    }
+
+    @GetMapping("/login")
+    public String toLoginPage() {
+        return "loginpage";
+    }
+
     @GetMapping("/register")
     public String registerForm() {
-        return "redirect:/pages/registration.html";
+        return "registration";
     }
 
     @PostMapping("/registerUser")
     @ResponseBody
     public ResultMSG processRegistration(@RequestBody String s) {
-        System.out.println("s = " + s);
+        //System.out.println("s = " + s);
         User user = gson.fromJson(s, User.class);
         user.setUserState(1);
+        user.setPassword(user.getPassword());
         System.out.println("user = " + user);
 
         if (userService.registerUser(user)) {
@@ -69,22 +81,14 @@ public class LoginUserController {
         }
     }
 
-    @GetMapping("/")
-    public String initPage() {
-        return "/login";
-    }
 
-    @GetMapping("/login")
-    public String toLoginPage() {
-        return "redirect:/pages/loginpage.html";
-    }
 
     @PostMapping("/loginUser")
     @ResponseBody
     public ResultMSG loginUser(@RequestBody String userData, HttpServletResponse response) {
-        System.out.println("userData = " + userData);
+        //System.out.println("userData = " + userData);
         User user = gson.fromJson(userData, User.class);
-        System.out.println("user = " + user);
+        //System.out.println("user = " + user);
 
         if (userService.loginUser(user)) {
             //登陆成功,生成jwt令牌
@@ -110,21 +114,28 @@ public class LoginUserController {
         return ResultMSG.error(444, "账号密码错误,请检查后再试!");
     }
 
-    @GetMapping("/main")
+    @GetMapping("logoutUser")
+    @ResponseBody
+    public String logoutUser(HttpServletRequest request,HttpServletResponse response){
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c :
+                cookies) {
+            c.setMaxAge(0);
+            c.setPath("/");
+            response.addCookie(c);
+        }
+        return "loginpage";
+    }
+
+    @GetMapping("/main.do")
     public String toMainPage() {
-        return "/pages/customer.html";
+        return "customer";
     }
 
     @RequestMapping("/error")
     public String errorPage() {
-        return "redirect:/pages/error.html";
+        return "error";
     }
 
-    public void addCookie(HttpServletResponse response, String name, String value) {
-        Cookie cookie = new Cookie(name.trim(), value.trim());
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-
-    }
 
 }
