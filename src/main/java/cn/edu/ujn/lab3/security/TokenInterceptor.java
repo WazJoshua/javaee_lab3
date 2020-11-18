@@ -27,7 +27,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         //设置编码格式
         response.setCharacterEncoding("UTF-8");
         //这句话是解决乱码的
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
 
         Cookie[] cookies = request.getCookies();
         String jwtToken = null;
@@ -49,6 +49,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 
         if (jwtToken != null) {
             if (JWTUtils.checkJWT(jwtToken)) {
+                response.setContentType("text/html;charset=UTF-8");
                 return true;
             } else {
                 resultMSG = ResultMSG.error("验证失败!");
@@ -67,7 +68,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 
 
         responseData = ResultMSG.error("请先登录!");
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         String json = gson.toJson(responseData);
         out.print(json);
         out.flush();

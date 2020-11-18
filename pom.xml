@@ -19,8 +19,8 @@
         <mybatis-spring.version>2.0.5</mybatis-spring.version>
         <mysqlconnector.version>8.0.21</mysqlconnector.version>
         <druid.version>1.2.1</druid.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
 
 

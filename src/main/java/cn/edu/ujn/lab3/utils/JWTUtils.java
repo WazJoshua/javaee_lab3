@@ -1,11 +1,6 @@
 package cn.edu.ujn.lab3.utils;
 
 import cn.edu.ujn.lab3.model.User;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.sun.org.apache.xml.internal.security.algorithms.JCEMapper;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 
