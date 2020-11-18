@@ -68,8 +68,6 @@ public class CustomerController {
         List<Customer> customers = customerService.selectCusBySel(customer);
 
         PageInfo pageInfo = new PageInfo(customers, 5);
-
-        //List<Customer> customersOV = customerService.selectCusBySelOV(customer);
         List<Customer> nCustomers = new ArrayList<Customer>();
         for (Customer c :
                 customers) {
@@ -136,5 +134,6 @@ public class CustomerController {
         if (b) {
             return ResultMSG.success();
         } else return ResultMSG.error();
+
     }
 }

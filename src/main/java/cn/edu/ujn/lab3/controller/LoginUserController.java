@@ -75,6 +75,7 @@ public class LoginUserController {
         boolean byUserCode = userService.findByUserCode(usercode);
         if (byUserCode) {
             ResultMSG success = ResultMSG.success("账号可用!");
+
             return success;
         } else {
             return ResultMSG.error("账号不可用!");

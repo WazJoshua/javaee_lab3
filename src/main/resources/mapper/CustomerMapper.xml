@@ -52,7 +52,7 @@
                 cust_id=#{customer.custId}
             </if>
             <if test="customer.custName!=null and customer.custName!=''">
-                AND cust_name=#{customer.custName}
+                AND cust_name like concat('%',#{customer.custName},'%')
             </if>
             <if test="customer.custSource!=null and customer.custSource!=''">
                 AND cust_source=#{customer.custSource}
