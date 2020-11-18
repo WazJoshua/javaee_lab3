@@ -580,7 +580,7 @@ function editItem() {
 
 /**************************************************动态查询框************************************************************/
 var customerName = $("#customerName");
-
+var reg = /^[A-Za-z]+$/;
 var time = 0;
 customerName.blur(function (){
     $("#ProjectNumberSearch").empty();
@@ -588,41 +588,75 @@ customerName.blur(function (){
 })
 customerName.bind('input', function sasa() {
     var customerName = $("#customerName").val();
-    var s = JSON.stringify({
-        "pn": 1,
-        "customer": {
-            "custPinyin": customerName,
+    if (reg.test(customerName)){
+        var s = JSON.stringify({
+            "pn": 1,
+            "customer": {
+                "custPinyin": customerName,
+            }
+        });
+        if (time == 0){
+            time = 3;
+            var timeIndex = setInterval(function () {
+                time--;
+                if (time == 0) {
+                    clearInterval(timeIndex);
+                }
+            }, 100);
+            $.ajax({
+                url: "/Lab3Demo/getCustomerByPinyin",
+                contentType: "application/json",
+                data: s,
+                type: "POST",
+                success: function (result) {
+                    $("#ProjectNumberSearch").css("display", "block");
+                    var customers = result.pageInfo.list;
+                    console.log(result);
+                    $.each(customers,function (index,customer){
+                        var cusInfo = `<p style="color: #337ab7">${customer}</p>`
+                        $("#ProjectNumberSearch").append(cusInfo);
+                    })
+                }
+            })
+            $("#ProjectNumberSearch").empty();
+            $("#ProjectNumberSearch").css("display", "none");
         }
-    });
-    console.log(s);
-    if (time == 0){
-        time = 10;
-        var timeIndex = setInterval(function () {
-            time--;
-            if (time == 0) {
-                clearInterval(timeIndex);
+    }else {
+        var s = JSON.stringify({
+            "pn": 1,
+            "customer": {
+                "custName": customerName,
             }
-        }, 100);
-        $.ajax({
-            url: "/Lab3Demo/getCustomerByPinyin",
-            contentType: "application/json",
-            data: s,
-            type: "POST",
-            success: function (result) {
-                $("#ProjectNumberSearch").css("display", "block");
-                var customers = result.pageInfo.list;
-                console.log(result);
-                $.each(customers,function (index,customer){
-                    console.log("im innnnnn")
-                    var cusInfo = `<p style="color: #337ab7">${customer}</p>`
-                    console.log(index+"--"+customer.custName);
-                    $("#ProjectNumberSearch").append(cusInfo);
-                })
-            }
-        })
-        $("#ProjectNumberSearch").empty();
-        $("#ProjectNumberSearch").css("display", "none");
+        });
+        if (time == 0){
+            time = 3;
+            var timeIndex = setInterval(function () {
+                time--;
+                if (time == 0) {
+                    clearInterval(timeIndex);
+                }
+            }, 100);
+            $.ajax({
+                url: "/Lab3Demo/getCustomerBySel",
+                contentType: "application/json",
+                data: s,
+                type: "POST",
+                success: function (result) {
+                    $("#ProjectNumberSearch").css("display", "block");
+                    var customers = result.pageInfo.list;
+                    console.log(result);
+                    $.each(customers,function (index,customer){
+                        var cusInfo = `<p style="color: #337ab7">${customer.custName}</p>`
+                        $("#ProjectNumberSearch").append(cusInfo);
+                    })
+                }
+            })
+            $("#ProjectNumberSearch").empty();
+            $("#ProjectNumberSearch").css("display", "none");
+        }
     }
+
+
     if (customerName == ''){
         $("#ProjectNumberSearch").empty();
         $("#ProjectNumberSearch").css("display", "none");
