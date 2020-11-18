@@ -34,38 +34,6 @@ public class JWTUtils {
         return token;
     }
 
-/*
-    public static boolean verify(String token){
-
-        try {
-            Algorithm algorithm = JCEMapper.Algorithm.HMAC256(TOKEN_SECRET);
-            JWTVerifier verifier = JWT.require(algorithm).build();
-            DecodedJWT jwt = verifier.verify(token);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return  false;
-        }
-    }*/
-
-    /*public static<T> T unsign(String jwt, Class<T> classT) {
-        final JWTVerifier verifier = new JWTVerifier(APP_SECRET);
-        try {
-            final Map<String,Object> claims= (Map<String, Object>) verifier.verify(jwt);
-            if (claims.containsKey(EXPIRE) && claims.containsKey(PAYLOAD)) {
-                long exp = (Long)claims.get(EXP);
-                long currentTimeMillis = System.currentTimeMillis();
-                if (exp > currentTimeMillis) {
-                    String json = (String)claims.get(PAYLOAD);
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    return objectMapper.readValue(json, classT);
-                }
-            }
-            return null;
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
 
     public static Claims parseJWT(String token) {
         try {

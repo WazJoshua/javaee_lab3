@@ -113,8 +113,11 @@
                 data: s,
                 success: function (success) {
                     console.log(success);
-                    if (success.code == 200)
-                        window.location.href = "/Lab3Demo/index.html"
+                    if (success.code == 200){
+                        alert("注册成功!")
+                        setTimeout(window.location.href = "/Lab3Demo/login",2000)
+                    }
+
                     else if (success.code == 416) {
                         $("#altMsg").html(success.msg);
                         $("#altMsg").animate({left: "52%"}, 50);
@@ -123,7 +126,8 @@
                         $("#altMsg").animate({left: "48%"}, 50);
                         $("#altMsg").animate({left: "50%"}, 50);
                     } else {
-                        window.location.href = "/Lab3Demo/error"
+                        alert("注册失败!")
+                        window.location.href = "/Lab3Demo/register"
                     }
                 }
             })

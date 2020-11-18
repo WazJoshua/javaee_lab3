@@ -19,4 +19,7 @@ public class PasswordTest {
         System.out.println("u = " + u);
         System.out.println(BCrypt.checkpw("123",u.getPassword()));
     }
+
+
+
 }
